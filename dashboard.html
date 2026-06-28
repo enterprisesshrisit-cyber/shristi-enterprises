@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Dashboard – Shristi Enterprises</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="style.css"/>
+<script src="app.js"></script>
+</head>
+<body>
+<div class="app-layout">
+  <!-- SIDEBAR -->
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-logo">
+      <div class="sidebar-logo-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 8h14M5 8a2 2 0 1 0 0-4H3v16h2M5 8v12m14-8 2 8H7m10-8V4M7 16h10"/></svg></div>
+      <div class="sidebar-logo-text"><strong>SHRISTI</strong><span>shristi.enterprises</span></div>
+    </div>
+    <nav class="sidebar-nav">
+      <div class="nav-section-label">Main</div>
+      <a class="nav-item active" href="dashboard.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>Dashboard</a>
+      <a class="nav-item" href="book.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 8h14M5 8a2 2 0 1 0 0-4H3v16h2M5 8v12m14-8 2 8H7m10-8V4M7 16h10"/></svg>Book Shipment</a>
+      <a class="nav-item" href="track.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>Track Shipments</a>
+      <div class="nav-section-label">Reports</div>
+      <a class="nav-item" href="#" onclick="showSection('shipments')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>All Shipments</a>
+      <a class="nav-item" href="#" onclick="showSection('invoices')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>Invoices &amp; Billing</a>
+      <div class="nav-section-label" id="corpNav" style="display:none">Corporate</div>
+      <a class="nav-item" href="#" id="empLink" style="display:none" onclick="showSection('employees')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg>Team Members</a>
+      <div class="nav-section-label">Account</div>
+      <a class="nav-item" href="#" onclick="showSection('profile')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>My Profile</a>
+      <a class="nav-item" href="index.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>Homepage</a>
+    </nav>
+    <div class="sidebar-footer">
+      <div class="sidebar-user" onclick="Auth.logout()">
+        <div class="user-avatar" id="sideAvatar">?</div>
+        <div class="sidebar-user-info"><strong id="sideName">Loading…</strong><span id="sideRole">—</span></div>
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.4)" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+      </div>
+    </div>
+  </aside>
+
+  <div class="main">
+    <!-- TOPBAR -->
+    <div class="topbar">
+      <div class="topbar-left">
+        <div class="page-title" id="pageTitle">Dashboard</div>
+      </div>
+      <div class="topbar-right">
+        <a href="track.html" class="topbar-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>Track</a>
+        <a href="book.html" class="topbar-btn primary"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>Book Shipment</a>
+      </div>
+    </div>
+
+    <div class="page-content">
+      <!-- OVERVIEW SECTION -->
+      <div id="secOverview">
+        <!-- STATS -->
+        <div class="stat-grid" id="statsGrid"></div>
+        <!-- QUICK ACTIONS -->
+        <div class="grid-2" style="margin-bottom:24px;">
+          <div class="card">
+            <div class="card-header"><div class="card-title">Quick Track</div></div>
+            <div class="card-body">
+              <div style="display:flex;gap:8px;">
+                <input class="form-input" id="qtAwb" placeholder="Enter AWB number…" style="flex:1"/>
+                <select class="form-select" id="qtCarrier" style="width:140px">
+                  <option value="">Carrier…</option>
+                  <option value="dtdc">DTDC</option>
+                  <option value="maruti">Maruti</option>
+                  <option value="bluedart">BlueDart</option>
+                  <option value="delhivery">Delhivery</option>
+                </select>
+                <button class="btn btn-primary btn-sm" onclick="quickTrack()">Track</button>
+              </div>
+              <div id="qtResult" style="display:none;margin-top:14px;padding:14px;background:var(--bg);border-radius:8px;border:1px solid var(--border);font-size:13px;"></div>
+            </div>
+          </div>
+          <div class="card">
+            <div class="card-header"><div class="card-title">Credit Account Status</div></div>
+            <div class="card-body" id="creditCard">
+              <div style="display:flex;justify-content:space-between;margin-bottom:10px;">
+                <span class="text-sm text-muted">Available Credit</span>
+                <span class="text-sm font-bold text-navy" id="avCredit">—</span>
+              </div>
+              <div style="height:10px;background:var(--border);border-radius:5px;overflow:hidden;margin-bottom:10px;">
+                <div id="creditBar" style="height:100%;background:linear-gradient(90deg,var(--blue),var(--navy));border-radius:5px;transition:width 0.5s;width:0%"></div>
+              </div>
+              <div style="display:flex;justify-content:space-between;" class="text-xs text-muted">
+                <span>Used: <strong id="creditUsed" style="color:var(--text)">—</strong></span>
+                <span>Limit: <strong id="creditLimit" style="color:var(--text)">—</strong></span>
+              </div>
+              <div style="margin-top:14px;padding:10px 12px;background:var(--bg);border-radius:8px;font-size:12.5px;color:var(--muted);" id="accountTypeInfo"></div>
+            </div>
+          </div>
+        </div>
+        <!-- RECENT SHIPMENTS -->
+        <div class="card">
+          <div class="card-header">
+            <div class="card-title">Recent Shipments</div>
+            <div style="display:flex;gap:8px">
+              <a href="track.html" class="btn btn-ghost btn-sm">Track All</a>
+              <a href="book.html" class="btn btn-blue btn-sm">+ New Booking</a>
+            </div>
+          </div>
+          <div class="table-wrap" id="recentShipmentsWrap" style="border:none;border-radius:0;">
+            <table id="recentTable">
+              <thead><tr>
+                <th>AWB Number</th><th>Carrier</th><th>Receiver</th><th>Destination</th>
+                <th>Weight</th><th>Status</th><th>Date</th><th>Amount</th><th>Actions</th>
+              </tr></thead>
+              <tbody id="recentBody"></tbody>
+            </table>
+          </div>
+          <div class="card-footer" style="display:flex;justify-content:space-between;align-items:center;">
+            <span class="text-sm text-muted" id="recentMeta"></span>
+            <button class="btn btn-ghost btn-sm" onclick="showSection('shipments')">View All Shipments →</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- ALL SHIPMENTS SECTION -->
+      <div id="secShipments" style="display:none">
+        <div class="filter-bar">
+          <div class="search-box"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg><input id="shipSearch" placeholder="Search by AWB, name, city…" oninput="filterShipments()"/></div>
+          <select class="filter-select" id="shipStatus" onchange="filterShipments()"><option value="">All Statuses</option><option value="booked">Booked</option><option value="picked_up">Picked Up</option><option value="in_transit">In Transit</option><option value="out_for_delivery">Out for Delivery</option><option value="delivered">Delivered</option><option value="failed_delivery">Failed</option></select>
+          <select class="filter-select" id="shipCarrier" onchange="filterShipments()"><option value="">All Carriers</option><option value="dtdc">DTDC</option><option value="maruti">Maruti</option><option value="bluedart">BlueDart</option><option value="delhivery">Delhivery</option></select>
+          <button class="btn btn-outline btn-sm" onclick="exportMyShipments()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>Export CSV</button>
+        </div>
+        <div class="card">
+          <div class="table-wrap" style="border:none;border-radius:0">
+            <table><thead><tr><th>AWB</th><th>Carrier</th><th>Receiver</th><th>City</th><th>Wt.</th><th>Service</th><th>Status</th><th>Date</th><th>Amount</th><th></th></tr></thead>
+            <tbody id="allShipBody"></tbody></table>
+          </div>
+          <div class="card-footer" style="display:flex;justify-content:space-between;align-items:center;">
+            <span class="text-sm text-muted" id="allShipMeta"></span>
+            <div class="pagination" id="shipPagination"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- INVOICES SECTION -->
+      <div id="secInvoices" style="display:none">
+        <div class="card">
+          <div class="card-header"><div class="card-title">Billing & Invoices</div></div>
+          <div class="card-body">
+            <div class="alert alert-info" style="margin-bottom:20px"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg>Invoices are generated monthly. Contact your account manager for custom billing cycles.</div>
+            <div id="invoiceList"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- PROFILE SECTION -->
+      <div id="secProfile" style="display:none">
+        <div class="grid-2">
+          <div class="card">
+            <div class="card-header"><div class="card-title">Account Information</div><button class="btn btn-outline btn-sm" onclick="saveProfile()">Save Changes</button></div>
+            <div class="card-body" id="profileForm"></div>
+          </div>
+          <div class="card">
+            <div class="card-header"><div class="card-title">Change Password</div></div>
+            <div class="card-body">
+              <div class="fg"><label>Current Password</label><input class="form-input" id="cpOld" type="password" placeholder="Enter current password"/></div>
+              <div class="fg"><label>New Password</label><input class="form-input" id="cpNew" type="password" placeholder="Min 8 characters"/></div>
+              <div class="fg"><label>Confirm New Password</label><input class="form-input" id="cpNew2" type="password" placeholder="Re-enter new password"/></div>
+              <button class="btn btn-primary btn-block" onclick="changePassword()">Update Password</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- EMPLOYEES SECTION -->
+      <div id="secEmployees" style="display:none">
+        <div class="card">
+          <div class="card-header"><div class="card-title">Team Members</div><button class="btn btn-blue btn-sm" onclick="openAddEmp()">+ Add Employee</button></div>
+          <div class="table-wrap" style="border:none;border-radius:0">
+            <table><thead><tr><th>Name</th><th>Email</th><th>Phone</th><th>Shipments</th><th>Status</th><th>Joined</th><th></th></tr></thead>
+            <tbody id="empBody"></tbody></table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- SHIPMENT DETAIL MODAL -->
+<div class="modal-overlay" id="shipModal">
+  <div class="modal modal-lg">
+    <div class="modal-header"><div class="modal-title" id="modalTitle">Shipment Details</div><button class="modal-close" onclick="closeModal('shipModal')"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button></div>
+    <div class="modal-body" id="modalBody"></div>
+    <div class="modal-footer"><button class="btn btn-ghost" onclick="closeModal('shipModal')">Close</button><button class="btn btn-outline" id="modalOpenCarrier">Open Carrier Tracker ↗</button></div>
+  </div>
+</div>
+
+<!-- ADD EMPLOYEE MODAL -->
+<div class="modal-overlay" id="empModal">
+  <div class="modal">
+    <div class="modal-header"><div class="modal-title">Add Team Member</div><button class="modal-close" onclick="closeModal('empModal')"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button></div>
+    <div class="modal-body">
+      <div class="fg"><label>Full Name <span style="color:red">*</span></label><input class="form-input" id="empName" placeholder="Employee Name"/></div>
+      <div class="form-row">
+        <div class="fg" style="margin-bottom:0"><label>Email <span style="color:red">*</span></label><input class="form-input" id="empEmail" type="email" placeholder="emp@company.com"/></div>
+        <div class="fg" style="margin-bottom:0"><label>Phone</label><input class="form-input" id="empPhone" placeholder="+91 98765 43210"/></div>
+      </div>
+      <div class="fg" style="margin-top:14px"><label>Temporary Password <span style="color:red">*</span></label><input class="form-input" id="empPass" type="password" placeholder="They can change later"/></div>
+    </div>
+    <div class="modal-footer"><button class="btn btn-ghost" onclick="closeModal('empModal')">Cancel</button><button class="btn btn-primary" onclick="addEmployee()">Add Employee</button></div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+const me = Auth.guard();
+let _allShips=[], _shipPage=1, _perPage=15;
+
+// Init
+document.getElementById('sideAvatar').textContent=me.name.charAt(0).toUpperCase();
+document.getElementById('sideName').textContent=me.name;
+document.getElementById('sideRole').textContent=me.role==='corporate'?'Corporate Account':me.role==='admin'?'Administrator':'Customer';
+if(me.role==='admin'){const el=document.createElement('a');el.className='nav-item';el.href='admin.html';el.innerHTML='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>Admin Panel';document.querySelector('.sidebar-nav').appendChild(el);}
+if(me.role==='corporate'){document.getElementById('corpNav').style.display='';document.getElementById('empLink').style.display='';}
+
+function showSection(sec){
+  ['Overview','Shipments','Invoices','Profile','Employees'].forEach(s=>{
+    const el=document.getElementById('sec'+s);
+    if(el)el.style.display=sec===s.toLowerCase()?'':'none';
+  });
+  document.getElementById('pageTitle').textContent={overview:'Dashboard',shipments:'All Shipments',invoices:'Billing & Invoices',profile:'My Profile',employees:'Team Members'}[sec]||'Dashboard';
+  document.querySelectorAll('.nav-item').forEach(n=>n.classList.remove('active'));
+  if(sec==='overview')loadDashboard();
+  if(sec==='shipments')loadAllShipments();
+  if(sec==='invoices')loadInvoices();
+  if(sec==='profile')loadProfile();
+  if(sec==='employees')loadEmployees();
+}
+
+function loadDashboard(){
+  const ships=Ship.byUser(me.id);
+  const total=ships.length, transit=ships.filter(s=>['picked_up','in_transit','out_for_delivery'].includes(s.status)).length;
+  const delivered=ships.filter(s=>s.status==='delivered').length, booked=ships.filter(s=>s.status==='booked').length;
+  const revenue=ships.reduce((a,s)=>a+(s.rates?.total||0),0);
+
+  document.getElementById('statsGrid').innerHTML=`
+    <div class="stat-card" style="--sc-color:var(--blue)">
+      <div class="stat-card-top"><div><div class="stat-label">Total Shipments</div><div class="stat-value">${total}</div></div><div class="stat-icon" style="background:var(--blue-xlight);color:var(--blue)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 8h14M5 8a2 2 0 1 0 0-4H3v16h2M5 8v12m14-8 2 8H7m10-8V4M7 16h10"/></svg></div></div>
+      <div class="stat-sub">${booked} awaiting pickup</div>
+    </div>
+    <div class="stat-card" style="--sc-color:var(--warning)">
+      <div class="stat-card-top"><div><div class="stat-label">In Transit</div><div class="stat-value">${transit}</div></div><div class="stat-icon" style="background:#FFFBEB;color:var(--warning)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="1" y="3" width="15" height="13" rx="1"/><path d="m16 8 6 4v5h-6V8z"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg></div></div>
+      <div class="stat-sub">Moving to destination</div>
+    </div>
+    <div class="stat-card" style="--sc-color:var(--success)">
+      <div class="stat-card-top"><div><div class="stat-label">Delivered</div><div class="stat-value">${delivered}</div></div><div class="stat-icon" style="background:var(--success-bg);color:var(--success)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg></div></div>
+      <div class="stat-sub">${total>0?Math.round(delivered/total*100):0}% delivery rate</div>
+    </div>
+    <div class="stat-card" style="--sc-color:var(--gold)">
+      <div class="stat-card-top"><div><div class="stat-label">Total Spend</div><div class="stat-value" style="font-size:22px">${U.inr(revenue)}</div></div><div class="stat-icon" style="background:var(--gold-light);color:var(--gold)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg></div></div>
+      <div class="stat-sub">Incl. GST</div>
+    </div>`;
+
+  // Credit card
+  const lim=me.creditLimit||0, used=me.creditUsed||0, avail=lim-used;
+  document.getElementById('avCredit').textContent=U.inr(avail);
+  document.getElementById('creditUsed').textContent=U.inr(used);
+  document.getElementById('creditLimit').textContent=U.inr(lim);
+  document.getElementById('creditBar').style.width=(lim>0?Math.round(used/lim*100):0)+'%';
+  document.getElementById('accountTypeInfo').innerHTML=`<strong style="color:var(--navy)">${me.accountType==='credit'?'Credit Account':'Prepaid Account'}</strong>${me.accountType==='credit'?`Available credit: ${U.inr(avail)}`:'Pay per shipment. Upgrade to credit for monthly billing.'}`;
+
+  // Recent shipments
+  const recent=ships.slice(0,10);
+  const tbody=document.getElementById('recentBody');
+  tbody.innerHTML=recent.length?recent.map(s=>renderShipRow(s,true)).join(''):`<tr><td colspan="9" class="text-center" style="padding:32px;color:var(--muted)">No shipments yet. <a href="book.html" style="color:var(--blue)">Book your first shipment →</a></td></tr>`;
+  document.getElementById('recentMeta').textContent=`Showing ${Math.min(recent.length,10)} of ${total} shipments`;
+}
+
+function renderShipRow(s, recent=false){
+  const sc=U.statusColor(s.status), sbg=U.statusBg(s.status), cc=U.carrierColor(s.carrier), cbg=U.carrierBg(s.carrier);
+  return `<tr>
+    <td><span class="td-mono">${s.awb}</span></td>
+    <td><span class="badge" style="color:${cc};background:${cbg};border-color:${cc}22">${U.carrierName(s.carrier)}</span></td>
+    <td>${s.rName}</td>
+    <td>${s.rCity}</td>
+    <td>${s.weight}kg</td>
+    ${!recent?`<td><span class="badge" style="font-size:10.5px">${s.service||'standard'}</span></td>`:''}
+    <td><span class="badge" style="color:${sc};background:${sbg};border-color:${sc}33">${Ship.LABELS[s.status]||s.status}</span></td>
+    <td><span class="text-muted text-sm">${U.fmtDate(s.createdAt)}</span></td>
+    <td><strong>${U.inr(s.rates?.total)}</strong></td>
+    <td><button class="btn btn-ghost btn-sm" onclick="viewShipment('${s.id}')">View</button></td>
+  </tr>`;
+}
+
+function loadAllShipments(){
+  _allShips=Ship.byUser(me.id);
+  filterShipments();
+}
+
+function filterShipments(){
+  const q=(document.getElementById('shipSearch')?.value||'').toLowerCase();
+  const st=document.getElementById('shipStatus')?.value||'';
+  const ca=document.getElementById('shipCarrier')?.value||'';
+  let ships=_allShips.filter(s=>{
+    if(st&&s.status!==st)return false;
+    if(ca&&s.carrier!==ca)return false;
+    if(q&&!s.awb.toLowerCase().includes(q)&&!s.rName.toLowerCase().includes(q)&&!s.rCity.toLowerCase().includes(q))return false;
+    return true;
+  });
+  const total=ships.length, pages=Math.ceil(total/_perPage);
+  _shipPage=Math.min(_shipPage,Math.max(1,pages));
+  const slice=ships.slice((_shipPage-1)*_perPage,_shipPage*_perPage);
+  document.getElementById('allShipBody').innerHTML=slice.length?slice.map(s=>renderShipRow(s,false)).join(''):`<tr><td colspan="10" style="padding:32px;text-align:center;color:var(--muted)">No shipments match your filters.</td></tr>`;
+  document.getElementById('allShipMeta').textContent=`${total} shipments total`;
+  renderPagination(pages,_shipPage,'shipPagination',p=>{_shipPage=p;filterShipments();});
+}
+
+function renderPagination(pages, current, id, cb){
+  const el=document.getElementById(id);
+  if(!el)return;
+  if(pages<=1){el.innerHTML='';return;}
+  let html='';
+  for(let i=1;i<=Math.min(pages,7);i++){
+    html+=`<button class="page-btn${i===current?' active':''}" onclick="(${cb.toString()})(${i})">${i}</button>`;
+  }
+  el.innerHTML=html;
+}
+
+function viewShipment(id){
+  const s=DB.findOne('shipments',x=>x.id===id);
+  if(!s)return;
+  const sc=U.statusColor(s.status),sbg=U.statusBg(s.status),cc=U.carrierColor(s.carrier),cbg=U.carrierBg(s.carrier);
+  document.getElementById('modalTitle').textContent=`Shipment — ${s.awb}`;
+  document.getElementById('modalOpenCarrier').onclick=()=>window.open(U.trackURL(s.carrier,s.awb),'_blank');
+  document.getElementById('modalBody').innerHTML=`
+    <div style="display:flex;align-items:center;gap:12px;margin-bottom:20px;flex-wrap:wrap">
+      <span style="font-family:'JetBrains Mono',monospace;font-size:20px;font-weight:700;color:var(--navy)">${s.awb}</span>
+      <span class="badge" style="color:${cc};background:${cbg};border:1px solid ${cc}33;font-size:12px">${U.carrierName(s.carrier)}</span>
+      <span class="badge" style="color:${sc};background:${sbg};border:1px solid ${sc}33;font-size:12px">${Ship.LABELS[s.status]}</span>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:20px">
+      <div style="background:var(--bg);border-radius:10px;padding:14px">
+        <div style="font-size:11px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:0.07em;margin-bottom:10px">📦 Sender</div>
+        <div style="font-size:13.5px;font-weight:600;color:var(--text)">${s.sFrom}</div>
+        <div style="font-size:13px;color:var(--muted)">${s.sAddr}</div>
+        <div style="font-size:13px;color:var(--muted)">${s.sCity} – ${s.sPin}</div>
+        <div style="font-size:13px;color:var(--muted)">📞 ${s.sPhone}</div>
+      </div>
+      <div style="background:var(--bg);border-radius:10px;padding:14px">
+        <div style="font-size:11px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:0.07em;margin-bottom:10px">📬 Receiver</div>
+        <div style="font-size:13.5px;font-weight:600;color:var(--text)">${s.rName}</div>
+        <div style="font-size:13px;color:var(--muted)">${s.rAddr}</div>
+        <div style="font-size:13px;color:var(--muted)">${s.rCity} – ${s.rPin}</div>
+        <div style="font-size:13px;color:var(--muted)">📞 ${s.rPhone}</div>
+      </div>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:20px">
+      ${[['Weight',s.weight+'kg'],['Dimensions',s.length?`${s.length}×${s.breadth}×${s.height}cm`:'—'],['Contents',s.desc],['Service',U.cap(s.service)]].map(([l,v])=>`<div style="background:var(--bg);border-radius:8px;padding:10px"><div style="font-size:10px;font-weight:700;color:var(--muted);text-transform:uppercase;margin-bottom:4px">${l}</div><div style="font-size:13px;font-weight:600;color:var(--text)">${v}</div></div>`).join('')}
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:20px">
+      ${[['Base Rate',U.inr(s.rates?.base)],['Weight Charge',U.inr(s.rates?.weightChg)],['GST (18%)',U.inr(s.rates?.gst)],['Total',U.inr(s.rates?.total)]].map(([l,v],i)=>`<div style="background:${i===3?'var(--navy)':'var(--bg)'};border-radius:8px;padding:10px"><div style="font-size:10px;font-weight:700;color:${i===3?'rgba(255,255,255,0.6)':'var(--muted)'};text-transform:uppercase;margin-bottom:4px">${l}</div><div style="font-size:14px;font-weight:700;color:${i===3?'#fff':'var(--text)'}">${v}</div></div>`).join('')}
+    </div>
+    <div style="font-size:13px;font-weight:700;color:var(--text2);margin-bottom:10px;text-transform:uppercase;letter-spacing:0.06em">Tracking Timeline</div>
+    <div class="timeline">${(s.events||[]).map((ev,i,arr)=>{const active=i===arr.length-1&&s.status!=='delivered';return`<div class="tl-item${ev.status==='delivered'?' done':active?' active':' done'}"><div class="tl-dot"></div><div class="tl-event">${ev.label}</div><div class="tl-meta">${U.fmtDT(ev.ts)}${ev.loc?' · '+ev.loc:''}</div>${ev.note?`<div class="tl-meta" style="margin-top:2px;font-style:italic">${ev.note}</div>`:''}</div>`}).join('')}</div>`;
+  openModal('shipModal');
+}
+
+function quickTrack(){
+  const awb=document.getElementById('qtAwb').value.trim();
+  const carrier=document.getElementById('qtCarrier').value;
+  const res=document.getElementById('qtResult');
+  if(!awb){U.toast('Please enter an AWB number','error');return;}
+  // Check internal
+  const s=Ship.byAWB(awb);
+  if(s){
+    const sc=U.statusColor(s.status);
+    res.style.display='block';
+    res.innerHTML=`<div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap"><strong style="font-family:monospace">${s.awb}</strong><span class="badge" style="color:${sc};background:${U.statusBg(s.status)}">${Ship.LABELS[s.status]}</span><span class="text-sm text-muted">→ ${s.rCity}</span><a href="#" onclick="viewShipment('${s.id}');return false" style="color:var(--blue);font-size:12px;margin-left:auto">View Details</a></div>`;
+  } else if(carrier){
+    const url=U.trackURL(carrier,awb);
+    res.style.display='block';
+    res.innerHTML=`<div style="display:flex;align-items:center;gap:10px"><span class="text-muted text-sm">Not found in our system. Try on carrier site:</span><a href="${url}" target="_blank" class="btn btn-primary btn-sm">Open ${U.carrierName(carrier)} ↗</a></div>`;
+    if(carrier==='dtdc')navigator.clipboard.writeText(awb).catch(()=>{});
+    window.open(url,'_blank');
+  } else {
+    res.style.display='block';
+    res.innerHTML=`<span class="text-muted text-sm">AWB not found in our system. Please select a carrier to track on their website.</span>`;
+  }
+}
+
+function loadInvoices(){
+  const inv=DB.find('invoices',i=>i.userId===me.id);
+  const el=document.getElementById('invoiceList');
+  if(!inv.length){el.innerHTML='<div class="empty-state"><div class="empty-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg></div><div class="empty-title">No Invoices Yet</div><div class="empty-sub">Your first invoice will appear here after your first shipment month.</div></div>';return;}
+  el.innerHTML=`<div class="table-wrap"><table><thead><tr><th>Invoice No.</th><th>Date</th><th>Shipments</th><th>Subtotal</th><th>GST</th><th>Total</th><th>Status</th><th></th></tr></thead><tbody>${inv.map(i=>`<tr><td class="td-mono">${i.invoiceNo}</td><td>${U.fmtDate(i.createdAt)}</td><td>${i.awbs?.length||0}</td><td>${U.inr(i.subtotal)}</td><td>${U.inr(i.gstAmount)}</td><td><strong>${U.inr(i.total)}</strong></td><td><span class="badge ${i.status==='paid'?'badge-green':'badge-red'}">${i.status==='paid'?'Paid':'Unpaid'}</span></td><td><button class="btn btn-ghost btn-sm">Download</button></td></tr>`).join('')}</tbody></table></div>`;
+}
+
+function loadProfile(){
+  document.getElementById('profileForm').innerHTML=`
+    <div class="form-row"><div class="fg" style="margin-bottom:0"><label>Full Name</label><input class="form-input" id="pName" value="${me.name}"/></div><div class="fg" style="margin-bottom:0"><label>Phone</label><input class="form-input" id="pPhone" value="${me.phone||''}"/></div></div>
+    <div class="fg" style="margin-top:14px"><label>Email Address</label><input class="form-input" value="${me.email}" disabled style="opacity:0.6"/></div>
+    <div class="fg"><label>Company Name</label><input class="form-input" id="pCompany" value="${me.company||''}"/></div>
+    <div class="form-row"><div class="fg" style="margin-bottom:0"><label>GST Number</label><input class="form-input" id="pGst" value="${me.gst||''}"/></div><div class="fg" style="margin-bottom:0"><label>PAN Number</label><input class="form-input" id="pPan" value="${me.pan||''}"/></div></div>
+    <div style="margin-top:14px;padding:12px 16px;background:var(--bg);border-radius:8px;font-size:13px;color:var(--muted)">
+      <strong style="color:var(--text);display:block;margin-bottom:4px">Account Type</strong>
+      ${me.accountType==='credit'?'Credit Account — Monthly billing':'Prepaid Account — Pay per shipment'} · Role: ${U.cap(me.role)}
+    </div>`;
+}
+
+function saveProfile(){
+  DB.update('users',me.id,{name:document.getElementById('pName').value,phone:document.getElementById('pPhone').value,company:document.getElementById('pCompany')?.value||me.company,gst:document.getElementById('pGst')?.value||me.gst,pan:document.getElementById('pPan')?.value||me.pan});
+  U.toast('Profile updated successfully');
+}
+
+function changePassword(){
+  const old=document.getElementById('cpOld').value,nw=document.getElementById('cpNew').value,nw2=document.getElementById('cpNew2').value;
+  const user=DB.findOne('users',u=>u.id===me.id);
+  if(user.passwordHash!==Auth.hash(old)){U.toast('Current password is incorrect','error');return;}
+  if(nw.length<8){U.toast('New password must be at least 8 characters','error');return;}
+  if(nw!==nw2){U.toast('Passwords do not match','error');return;}
+  DB.update('users',me.id,{passwordHash:Auth.hash(nw)});
+  document.getElementById('cpOld').value=document.getElementById('cpNew').value=document.getElementById('cpNew2').value='';
+  U.toast('Password updated successfully');
+}
+
+function loadEmployees(){
+  const emps=DB.find('users',u=>u.parentId===me.id);
+  const tbody=document.getElementById('empBody');
+  tbody.innerHTML=emps.length?emps.map(e=>`<tr>
+    <td><strong>${e.name}</strong></td><td style="font-size:13px">${e.email}</td><td>${e.phone||'—'}</td>
+    <td>${DB.count('shipments',s=>s.userId===e.id)}</td>
+    <td><span class="badge ${e.active?'badge-green':'badge-red'}">${e.active?'Active':'Inactive'}</span></td>
+    <td class="text-sm text-muted">${U.fmtDate(e.createdAt)}</td>
+    <td><button class="btn btn-ghost btn-sm" onclick="toggleEmp('${e.id}',${!e.active})">${e.active?'Deactivate':'Activate'}</button></td>
+  </tr>`).join(''):`<tr><td colspan="7" style="padding:32px;text-align:center;color:var(--muted)">No team members yet. Add your first employee above.</td></tr>`;
+}
+
+function toggleEmp(id,active){DB.update('users',id,{active});loadEmployees();U.toast(active?'Employee activated':'Employee deactivated');}
+
+function openAddEmp(){openModal('empModal');}
+function addEmployee(){
+  const name=document.getElementById('empName').value.trim();
+  const email=document.getElementById('empEmail').value.trim();
+  const phone=document.getElementById('empPhone').value.trim();
+  const pass=document.getElementById('empPass').value;
+  if(!name||!email||!pass){U.toast('Please fill in all required fields','error');return;}
+  const result=Auth.register({name,email,phone,password:pass,role:'customer',accountType:me.accountType,company:me.company,parentId:me.id});
+  if(result.error){U.toast(result.error,'error');return;}
+  closeModal('empModal');loadEmployees();
+  document.getElementById('empName').value=document.getElementById('empEmail').value=document.getElementById('empPhone').value=document.getElementById('empPass').value='';
+  U.toast('Employee account created successfully');
+}
+
+function exportMyShipments(){
+  const ships=Ship.byUser(me.id);
+  const rows=['AWB,Carrier,Service,Receiver,Phone,City,PIN,Weight,Status,Date,Total (₹)'];
+  ships.forEach(s=>rows.push(`${s.awb},${U.carrierName(s.carrier)},${s.service},${s.rName},${s.rPhone},${s.rCity},${s.rPin},${s.weight}kg,${Ship.LABELS[s.status]},${U.fmtDate(s.createdAt)},${s.rates?.total||0}`));
+  U.downloadCSV(`Shristi_Shipments_${new Date().toISOString().slice(0,10)}.csv`,rows.join('\n'));
+  U.toast('Shipment report downloaded');
+}
+
+function openModal(id){document.getElementById(id).classList.add('open');}
+function closeModal(id){document.getElementById(id).classList.remove('open');}
+
+loadDashboard();
+</script>
+</body>
+</html>

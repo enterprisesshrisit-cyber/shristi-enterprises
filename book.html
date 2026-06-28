@@ -1,0 +1,564 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Book Shipment – Shristi Enterprises</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="style.css"/>
+<script src="app.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
+</head>
+<body>
+<div class="app-layout">
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-logo">
+      <div class="sidebar-logo-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 8h14M5 8a2 2 0 1 0 0-4H3v16h2M5 8v12m14-8 2 8H7m10-8V4M7 16h10"/></svg></div>
+      <div class="sidebar-logo-text"><strong>SHRISTI</strong><span>shristi.enterprises</span></div>
+    </div>
+    <nav class="sidebar-nav">
+      <div class="nav-section-label">Main</div>
+      <a class="nav-item" href="dashboard.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>Dashboard</a>
+      <a class="nav-item active" href="book.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 8h14M5 8a2 2 0 1 0 0-4H3v16h2M5 8v12m14-8 2 8H7m10-8V4M7 16h10"/></svg>Book Shipment</a>
+      <a class="nav-item" href="track.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>Track Shipments</a>
+      <div class="nav-section-label">Reports</div>
+      <a class="nav-item" href="dashboard.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>All Shipments</a>
+    </nav>
+    <div class="sidebar-footer">
+      <div class="sidebar-user" onclick="Auth.logout()">
+        <div class="user-avatar" id="sideAvatar">?</div>
+        <div class="sidebar-user-info"><strong id="sideName">—</strong><span id="sideRole">—</span></div>
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.4)" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+      </div>
+    </div>
+  </aside>
+  <div class="main">
+    <div class="topbar">
+      <div class="topbar-left"><div class="page-title">Book Shipment</div></div>
+      <div class="topbar-right">
+        <a href="dashboard.html" class="topbar-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5m7-7-7 7 7 7"/></svg>Dashboard</a>
+      </div>
+    </div>
+    <div class="page-content">
+      <div class="tabs" id="mainTabs">
+        <div class="tab active" onclick="switchMainTab('single')">📦 Single Shipment</div>
+        <div class="tab" onclick="switchMainTab('bulk')">📋 Bulk Booking (CSV)</div>
+      </div>
+
+      <!-- SINGLE BOOKING -->
+      <div id="tabSingle" class="tab-panel active">
+        <!-- STEPPER -->
+        <div class="stepper" id="stepper">
+          <div class="step active" id="step1"><div class="step-num">1</div><div class="step-label">Sender</div></div>
+          <div class="step" id="step2"><div class="step-num">2</div><div class="step-label">Receiver</div></div>
+          <div class="step" id="step3"><div class="step-num">3</div><div class="step-label">Package</div></div>
+          <div class="step" id="step4"><div class="step-num">4</div><div class="step-label">Carrier & Rate</div></div>
+          <div class="step" id="step5"><div class="step-num">5</div><div class="step-label">Confirm</div></div>
+        </div>
+
+        <div class="grid-2" style="align-items:start;gap:20px;">
+          <div>
+            <!-- STEP 1: SENDER -->
+            <div id="pane1">
+              <div class="card">
+                <div class="card-header"><div class="card-title" style="display:flex;align-items:center;gap:8px"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>Sender Details</div></div>
+                <div class="card-body">
+                  <div class="form-row">
+                    <div class="fg"><label>Sender Name <span class="req">*</span></label><input class="form-input" id="sFrom" placeholder="Shristi Enterprises"/></div>
+                    <div class="fg"><label>Phone <span class="req">*</span></label><input class="form-input" id="sPhone" placeholder="+91 82863 61223"/></div>
+                  </div>
+                  <div class="fg"><label>Pickup Address <span class="req">*</span></label><input class="form-input" id="sAddr" placeholder="Gala No.06, Rainbow Industrial Estate, MIDC"/></div>
+                  <div class="form-row-3">
+                    <div class="fg"><label>City <span class="req">*</span></label><input class="form-input" id="sCity" value="Mumbai"/></div>
+                    <div class="fg"><label>PIN Code <span class="req">*</span></label><input class="form-input" id="sPin" value="400093" maxlength="6"/></div>
+                    <div class="fg"><label>State</label><input class="form-input" id="sState" value="Maharashtra"/></div>
+                  </div>
+                  <div class="fg"><label>Pickup Date</label><input class="form-input" id="sPickup" type="date" min=""/></div>
+                  <div style="display:flex;justify-content:flex-end;margin-top:4px">
+                    <button class="btn btn-primary" onclick="goStep(2)">Next: Receiver Details →</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- STEP 2: RECEIVER -->
+            <div id="pane2" style="display:none">
+              <div class="card">
+                <div class="card-header"><div class="card-title" style="display:flex;align-items:center;gap:8px"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>Receiver Details</div></div>
+                <div class="card-body">
+                  <div class="form-row">
+                    <div class="fg"><label>Receiver Name <span class="req">*</span></label><input class="form-input" id="rName" placeholder="Rahul Sharma"/></div>
+                    <div class="fg"><label>Phone <span class="req">*</span></label><input class="form-input" id="rPhone" placeholder="+91 98765 43210"/></div>
+                  </div>
+                  <div class="fg"><label>Delivery Address <span class="req">*</span></label><textarea class="form-input form-textarea" id="rAddr" placeholder="123 Main Street, Block B" style="min-height:70px"></textarea></div>
+                  <div class="form-row-3">
+                    <div class="fg"><label>City <span class="req">*</span></label>
+                      <select class="form-select" id="rCity" onchange="updateRates()">
+                        <option value="">Select city…</option>
+                        ${Object.keys(Rates.ZONES).map(c=>`<option value="${c}">${c}</option>`).join('')}
+                      </select>
+                    </div>
+                    <div class="fg"><label>PIN Code <span class="req">*</span></label><input class="form-input" id="rPin" placeholder="110001" maxlength="6"/></div>
+                    <div class="fg"><label>State</label><input class="form-input" id="rState" placeholder="Delhi"/></div>
+                  </div>
+                  <div style="display:flex;justify-content:space-between;margin-top:4px">
+                    <button class="btn btn-ghost" onclick="goStep(1)">← Back</button>
+                    <button class="btn btn-primary" onclick="goStep(3)">Next: Package Details →</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- STEP 3: PACKAGE -->
+            <div id="pane3" style="display:none">
+              <div class="card">
+                <div class="card-header"><div class="card-title" style="display:flex;align-items:center;gap:8px"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 8h14M5 8a2 2 0 1 0 0-4H3v16h2M5 8v12m14-8 2 8H7m10-8V4M7 16h10"/></svg>Package Details</div></div>
+                <div class="card-body">
+                  <div class="form-row">
+                    <div class="fg"><label>Weight (kg) <span class="req">*</span></label><input class="form-input" id="pWeight" type="number" step="0.1" min="0.1" placeholder="1.5" oninput="updateRates()"/></div>
+                    <div class="fg"><label>No. of Pieces</label><input class="form-input" id="pPieces" type="number" min="1" value="1"/></div>
+                  </div>
+                  <div class="form-row-3">
+                    <div class="fg"><label>Length (cm)</label><input class="form-input" id="pLen" type="number" placeholder="30"/></div>
+                    <div class="fg"><label>Breadth (cm)</label><input class="form-input" id="pBreadth" type="number" placeholder="20"/></div>
+                    <div class="fg"><label>Height (cm)</label><input class="form-input" id="pHeight" type="number" placeholder="15"/></div>
+                  </div>
+                  <div id="volWarn" style="display:none" class="alert alert-warning" style="margin-bottom:14px"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>Volumetric weight exceeds actual weight. Billing will use vol. weight.</div>
+                  <div class="fg"><label>Contents / Description <span class="req">*</span></label><input class="form-input" id="pDesc" placeholder="Documents, Electronics, Books, etc."/></div>
+                  <div class="form-row">
+                    <div class="fg"><label>Declared Value (₹)</label><input class="form-input" id="pValue" type="number" placeholder="500" oninput="updateRates()"/></div>
+                    <div class="fg"><label>Insurance</label>
+                      <select class="form-select" id="pInsure" onchange="updateRates()">
+                        <option value="no">No Insurance</option>
+                        <option value="yes">Add Insurance (1.2% of value)</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div style="background:var(--bg);border:1.5px solid var(--border);border-radius:10px;padding:14px;margin-bottom:14px">
+                    <div style="display:flex;align-items:center;gap:10px;margin-bottom:8px">
+                      <input type="checkbox" id="isCOD" onchange="toggleCOD()" style="width:16px;height:16px;accent-color:var(--navy)"/>
+                      <label for="isCOD" style="font-weight:600;font-size:14px;cursor:pointer">Cash on Delivery (COD)</label>
+                    </div>
+                    <div id="codFields" style="display:none">
+                      <div class="fg" style="margin-bottom:0"><label>COD Amount (₹)</label><input class="form-input" id="codAmt" type="number" placeholder="1500" oninput="updateRates()"/></div>
+                      <div class="form-hint" style="margin-top:5px">COD charge: 1.8% of COD amount (min ₹35)</div>
+                    </div>
+                  </div>
+                  <div class="fg"><label>Special Remarks</label><input class="form-input" id="pRemarks" placeholder="Handle with care, Fragile, etc."/></div>
+                  <div style="display:flex;justify-content:space-between;margin-top:4px">
+                    <button class="btn btn-ghost" onclick="goStep(2)">← Back</button>
+                    <button class="btn btn-primary" onclick="goStep(4)">Next: Choose Carrier →</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- STEP 4: CARRIER -->
+            <div id="pane4" style="display:none">
+              <div class="card">
+                <div class="card-header"><div class="card-title">Select Carrier & Service</div></div>
+                <div class="card-body">
+                  <div id="rateCards" class="rate-cards"></div>
+                  <div class="fg" style="margin-top:16px"><label>Service Type</label>
+                    <select class="form-select" id="pService" onchange="updateRates()">
+                      <option value="standard">Standard (3–5 Days)</option>
+                      <option value="express">Express (1–2 Days) — +20%</option>
+                    </select>
+                  </div>
+                  <div style="display:flex;justify-content:space-between;margin-top:4px">
+                    <button class="btn btn-ghost" onclick="goStep(3)">← Back</button>
+                    <button class="btn btn-primary" onclick="goStep(5)">Next: Review & Confirm →</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- STEP 5: CONFIRM -->
+            <div id="pane5" style="display:none">
+              <div class="card">
+                <div class="card-header"><div class="card-title">Review & Confirm Booking</div></div>
+                <div class="card-body" id="confirmBody"></div>
+                <div class="card-footer" style="display:flex;justify-content:space-between">
+                  <button class="btn btn-ghost" onclick="goStep(4)">← Back</button>
+                  <button class="btn btn-primary btn-lg" id="confirmBtn" onclick="confirmBooking()">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+                    Confirm & Book Shipment
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- RIGHT: RATE SUMMARY -->
+          <div>
+            <div class="card" id="rateSummaryCard">
+              <div class="card-header"><div class="card-title">Rate Summary</div></div>
+              <div class="card-body" id="rateSummary">
+                <div class="empty-state" style="padding:24px">
+                  <div class="empty-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg></div>
+                  <div class="empty-title">Enter Details</div>
+                  <div class="empty-sub">Fill in destination city and weight to see carrier rates.</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="card" style="margin-top:16px">
+              <div class="card-body-tight" style="padding:16px">
+                <div style="font-size:12px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:0.07em;margin-bottom:12px">Zone Guide</div>
+                <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px;font-size:12px">
+                  ${[['Zone A','Maharashtra, Gujarat'],['Zone B','Delhi, Karnataka, TN, TS'],['Zone C','Bengal, Odisha, MP, UP'],['Zone D','Northeast, J&K']].map(([z,d])=>`<div><strong style="color:var(--navy)">${z}</strong><br><span style="color:var(--muted)">${d}</span></div>`).join('')}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- BULK BOOKING -->
+      <div id="tabBulk" class="tab-panel">
+        <div class="grid-2" style="align-items:start;gap:20px">
+          <div>
+            <div class="card" style="margin-bottom:20px">
+              <div class="card-header"><div class="card-title">Upload Shipment CSV</div></div>
+              <div class="card-body">
+                <div class="drop-zone" id="dropZone" onclick="document.getElementById('csvFile').click()">
+                  <div class="drop-zone-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg></div>
+                  <div class="drop-zone-title">Click to upload or drag & drop your CSV</div>
+                  <div class="drop-zone-sub">Maximum 200 shipments per upload · CSV format only</div>
+                </div>
+                <input type="file" id="csvFile" accept=".csv" style="display:none" onchange="parseCSV(this)"/>
+                <div style="display:flex;gap:8px;margin-top:12px;flex-wrap:wrap">
+                  <button class="btn btn-outline btn-sm" onclick="downloadTemplate()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/></svg>Download CSV Template</button>
+                  <button class="btn btn-ghost btn-sm" onclick="loadDemoCSV()">Load Demo Data</button>
+                </div>
+              </div>
+            </div>
+
+            <!-- CSV PREVIEW -->
+            <div class="card" id="csvPreviewCard" style="display:none">
+              <div class="card-header">
+                <div class="card-title" id="csvPreviewTitle">Preview</div>
+                <div style="display:flex;gap:8px">
+                  <button class="btn btn-ghost btn-sm" onclick="clearCSV()">Clear</button>
+                  <button class="btn btn-primary" id="bulkSubmitBtn" onclick="confirmBulkBooking()">Book All Shipments</button>
+                </div>
+              </div>
+              <div class="table-wrap" style="border:none;border-radius:0;max-height:400px;overflow-y:auto">
+                <table id="csvTable"><thead id="csvHead"></thead><tbody id="csvBody"></tbody></table>
+              </div>
+            </div>
+          </div>
+
+          <!-- BULK SUMMARY -->
+          <div>
+            <div class="card">
+              <div class="card-header"><div class="card-title">Bulk Booking Guide</div></div>
+              <div class="card-body">
+                <div style="font-size:13px;color:var(--text2);line-height:1.75;margin-bottom:18px">
+                  Upload a CSV file with all your shipment details. Our system will automatically calculate rates, generate AWB numbers, and create all bookings simultaneously.
+                </div>
+                <div style="display:flex;flex-direction:column;gap:10px">
+                  ${[['📥 Download Template','Get the pre-formatted CSV template with all required columns'],['✍️ Fill in Details','Add your shipment data — receiver details, weights, destinations'],['📤 Upload & Preview','Upload the filled CSV to preview all shipments before booking'],['✅ Confirm Booking','Review summary, confirm, and download your AWB sheet']].map(([t,d])=>`<div style="display:flex;gap:12px;padding:12px;background:var(--bg);border-radius:8px;border:1px solid var(--border)"><div style="font-size:20px;line-height:1">${t.split(' ')[0]}</div><div><div style="font-size:13px;font-weight:600;color:var(--text);margin-bottom:2px">${t.slice(t.indexOf(' ')+1)}</div><div style="font-size:12.5px;color:var(--muted)">${d}</div></div></div>`).join('')}
+                </div>
+                <div class="alert alert-info" style="margin-top:18px"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg>Maximum 200 shipments per CSV upload. For larger volumes, contact your account manager.</div>
+              </div>
+            </div>
+            <div class="card" style="margin-top:16px" id="bulkSummaryCard" style="display:none">
+              <div class="card-header"><div class="card-title">Booking Summary</div></div>
+              <div class="card-body" id="bulkSummaryBody"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- SUCCESS MODAL -->
+<div class="modal-overlay" id="successModal">
+  <div class="modal">
+    <div class="modal-body" id="successBody" style="text-align:center;padding:36px"></div>
+    <div class="modal-footer" style="justify-content:center;gap:12px">
+      <button class="btn btn-outline" onclick="location.href='track.html'">Track This Shipment</button>
+      <button class="btn btn-primary" onclick="bookAnother()">Book Another</button>
+    </div>
+  </div>
+</div>
+
+<!-- BULK SUCCESS MODAL -->
+<div class="modal-overlay" id="bulkSuccessModal">
+  <div class="modal modal-lg">
+    <div class="modal-header"><div class="modal-title">Bulk Booking Successful ✓</div></div>
+    <div class="modal-body" id="bulkSuccessBody"></div>
+    <div class="modal-footer">
+      <button class="btn btn-ghost" onclick="location.href='dashboard.html'">Go to Dashboard</button>
+      <button class="btn btn-primary" onclick="downloadAWBSheet()">📥 Download AWB Sheet</button>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+const me=Auth.guard();
+document.getElementById('sideAvatar').textContent=me.name.charAt(0);
+document.getElementById('sideName').textContent=me.name;
+document.getElementById('sideRole').textContent=U.cap(me.role);
+
+// Pre-fill sender from user profile
+document.getElementById('sFrom').value=me.company||me.name;
+document.getElementById('sPhone').value=me.phone||'';
+const tomorrow=new Date(); tomorrow.setDate(tomorrow.getDate()+1);
+document.getElementById('sPickup').min=tomorrow.toISOString().slice(0,10);
+document.getElementById('sPickup').value=tomorrow.toISOString().slice(0,10);
+
+let _currentStep=1, _selectedCarrier='', _rates=[], _csvData=[], _bookedShips=[];
+
+function switchMainTab(tab){
+  document.querySelectorAll('#mainTabs .tab').forEach((t,i)=>t.classList.toggle('active',i===(tab==='single'?0:1)));
+  document.getElementById('tabSingle').classList.toggle('active',tab==='single');
+  document.getElementById('tabBulk').classList.toggle('active',tab==='bulk');
+}
+
+function goStep(n){
+  if(n>_currentStep&&!validateStep(_currentStep))return;
+  _currentStep=n;
+  for(let i=1;i<=5;i++){
+    const s=document.getElementById('step'+i),p=document.getElementById('pane'+i);
+    if(!s||!p)continue;
+    s.className='step'+(i<n?' done':i===n?' active':'');
+    p.style.display=i===n?'':'none';
+  }
+  if(n===4)renderRateCards();
+  if(n===5)renderConfirm();
+}
+
+function validateStep(n){
+  const errs=[];
+  if(n===1){if(!v('sFrom'))errs.push('Sender name');if(!v('sPhone'))errs.push('Sender phone');if(!v('sAddr'))errs.push('Pickup address');if(!v('sCity'))errs.push('City');if(!v('sPin'))errs.push('PIN code');}
+  if(n===2){if(!v('rName'))errs.push('Receiver name');if(!v('rPhone'))errs.push('Phone');if(!v('rAddr'))errs.push('Address');if(!v('rCity'))errs.push('City');if(!v('rPin'))errs.push('PIN');}
+  if(n===3){if(!v('pWeight')||+document.getElementById('pWeight').value<=0)errs.push('Weight');if(!v('pDesc'))errs.push('Contents description');}
+  if(n===4){if(!_selectedCarrier)errs.push('Please select a carrier');}
+  if(errs.length){U.toast('Required: '+errs.join(', '),'error');return false;}
+  return true;
+}
+function v(id){const e=document.getElementById(id);return e&&e.value.trim();}
+
+function updateRates(){
+  const city=document.getElementById('rCity')?.value;
+  const wt=parseFloat(document.getElementById('pWeight')?.value||0);
+  const val=parseFloat(document.getElementById('pValue')?.value||0);
+  const insure=document.getElementById('pInsure')?.value==='yes'?val:0;
+  const cod=document.getElementById('isCOD')?.checked?parseFloat(document.getElementById('codAmt')?.value||0):0;
+  // Volumetric weight
+  const l=+document.getElementById('pLen')?.value||0, b=+document.getElementById('pBreadth')?.value||0, h=+document.getElementById('pHeight')?.value||0;
+  const volWt=l*b*h/5000;
+  document.getElementById('volWarn').style.display=volWt>wt&&volWt>0?'flex':'none';
+  const billWt=Math.max(wt,volWt);
+  if(!city||!billWt)return;
+  _rates=Rates.compare(city,billWt).map(r=>{if(document.getElementById('pService')?.value==='express'){r.total=Math.round(r.total*1.2);r.subtotal=Math.round(r.subtotal*1.2);}return r;});
+  renderRateCards();
+  renderRateSummary();
+}
+
+function renderRateCards(){
+  if(!_rates.length)return;
+  document.getElementById('rateCards').innerHTML=_rates.map((r,i)=>`
+    <div class="rate-card${_selectedCarrier===r.carrier?' selected':''}" onclick="selectCarrier('${r.carrier}')">
+      ${i===0?'<div class="rate-card-best">Best Value</div>':''}
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:4px">
+        <div class="rate-card-name" style="color:${U.carrierColor(r.carrier)}">${U.carrierName(r.carrier)}</div>
+        <div style="font-size:10.5px;padding:2px 8px;border-radius:10px;background:${U.carrierBg(r.carrier)};color:${U.carrierColor(r.carrier)};font-weight:700">Zone ${r.zone}</div>
+      </div>
+      <div class="rate-card-zone">Surface · 2-5 days delivery</div>
+      <div class="rate-card-price">${U.inr(r.total)}</div>
+      <div class="rate-card-gst">Incl. 18% GST (${U.inr(r.gst)})</div>
+    </div>`).join('');
+}
+
+function selectCarrier(c){_selectedCarrier=c;renderRateCards();renderRateSummary();}
+
+function renderRateSummary(){
+  const r=_rates.find(x=>x.carrier===_selectedCarrier)||_rates[0];
+  if(!r){return;}
+  document.getElementById('rateSummary').innerHTML=`
+    <div style="display:flex;align-items:center;justify-content:space-between;padding:12px 0;border-bottom:1px solid var(--border)"><span style="font-size:13px;color:var(--muted)">Carrier</span><strong style="color:${U.carrierColor(r.carrier)}">${U.carrierName(r.carrier)}</strong></div>
+    <div style="display:flex;align-items:center;justify-content:space-between;padding:12px 0;border-bottom:1px solid var(--border)"><span style="font-size:13px;color:var(--muted)">Zone</span><span>Zone ${r.zone}</span></div>
+    <div style="display:flex;align-items:center;justify-content:space-between;padding:12px 0;border-bottom:1px solid var(--border)"><span style="font-size:13px;color:var(--muted)">Base Rate</span><span>${U.inr(r.base)}</span></div>
+    <div style="display:flex;align-items:center;justify-content:space-between;padding:12px 0;border-bottom:1px solid var(--border)"><span style="font-size:13px;color:var(--muted)">Weight Charge</span><span>${U.inr(r.weightChg)}</span></div>
+    <div style="display:flex;align-items:center;justify-content:space-between;padding:12px 0;border-bottom:1px solid var(--border)"><span style="font-size:13px;color:var(--muted)">Fuel Surcharge</span><span>${U.inr(r.fuel)}</span></div>
+    ${r.insurance?`<div style="display:flex;align-items:center;justify-content:space-between;padding:12px 0;border-bottom:1px solid var(--border)"><span style="font-size:13px;color:var(--muted)">Insurance</span><span>${U.inr(r.insurance)}</span></div>`:''}
+    ${r.codCharge?`<div style="display:flex;align-items:center;justify-content:space-between;padding:12px 0;border-bottom:1px solid var(--border)"><span style="font-size:13px;color:var(--muted)">COD Charge</span><span>${U.inr(r.codCharge)}</span></div>`:''}
+    <div style="display:flex;align-items:center;justify-content:space-between;padding:12px 0;border-bottom:1px solid var(--border)"><span style="font-size:13px;color:var(--muted)">Subtotal</span><span>${U.inr(r.subtotal)}</span></div>
+    <div style="display:flex;align-items:center;justify-content:space-between;padding:12px 0;border-bottom:1px solid var(--border)"><span style="font-size:13px;color:var(--muted)">GST @18%</span><span>${U.inr(r.gst)}</span></div>
+    <div style="display:flex;align-items:center;justify-content:space-between;padding:14px 0"><span style="font-weight:700;font-size:15px;color:var(--navy)">Total Payable</span><strong style="font-size:20px;color:var(--navy)">${U.inr(r.total)}</strong></div>`;
+}
+
+function renderConfirm(){
+  const car=_selectedCarrier||(_rates[0]?.carrier);
+  const r=_rates.find(x=>x.carrier===car)||_rates[0];
+  const city=document.getElementById('rCity').value;
+  document.getElementById('confirmBody').innerHTML=`
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:18px">
+      <div style="background:var(--bg);border-radius:10px;padding:16px">
+        <div style="font-size:11px;font-weight:700;color:var(--muted);text-transform:uppercase;margin-bottom:10px">📦 Sender</div>
+        <div style="font-size:14px;font-weight:600">${document.getElementById('sFrom').value}</div>
+        <div style="font-size:13px;color:var(--muted)">${document.getElementById('sAddr').value}</div>
+        <div style="font-size:13px;color:var(--muted)">${document.getElementById('sCity').value} – ${document.getElementById('sPin').value}</div>
+      </div>
+      <div style="background:var(--bg);border-radius:10px;padding:16px">
+        <div style="font-size:11px;font-weight:700;color:var(--muted);text-transform:uppercase;margin-bottom:10px">📬 Receiver</div>
+        <div style="font-size:14px;font-weight:600">${document.getElementById('rName').value}</div>
+        <div style="font-size:13px;color:var(--muted)">${document.getElementById('rAddr').value}</div>
+        <div style="font-size:13px;color:var(--muted)">${city} – ${document.getElementById('rPin').value}</div>
+      </div>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:18px">
+      ${[['Carrier',`<span style="color:${U.carrierColor(car)};font-weight:700">${U.carrierName(car)}</span>`],['Weight',document.getElementById('pWeight').value+'kg'],['Contents',document.getElementById('pDesc').value],['Total',`<strong style="font-size:16px;color:var(--navy)">${U.inr(r?.total)}</strong>`]].map(([l,v])=>`<div style="background:var(--bg);border-radius:8px;padding:12px"><div style="font-size:10px;font-weight:700;color:var(--muted);text-transform:uppercase;margin-bottom:4px">${l}</div><div style="font-size:13.5px">${v}</div></div>`).join('')}
+    </div>
+    ${document.getElementById('isCOD').checked?`<div class="alert alert-warning" style="margin-bottom:14px"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/></svg>COD booking: ₹${document.getElementById('codAmt').value} to be collected from receiver.</div>`:''}`;
+}
+
+function toggleCOD(){document.getElementById('codFields').style.display=document.getElementById('isCOD').checked?'block':'none';updateRates();}
+
+function confirmBooking(){
+  const car=_selectedCarrier||(_rates[0]?.carrier);
+  if(!car){U.toast('Please select a carrier','error');return;}
+  const btn=document.getElementById('confirmBtn');
+  btn.disabled=true;btn.innerHTML='<span style="display:inline-block;width:16px;height:16px;border:2px solid rgba(255,255,255,0.3);border-top-color:#fff;border-radius:50%;animation:spin 0.7s linear infinite"></span> Booking…';
+  setTimeout(()=>{
+    try{
+      const s=Ship.create({
+        carrier:car,service:document.getElementById('pService').value,
+        sFrom:document.getElementById('sFrom').value,sPhone:document.getElementById('sPhone').value,
+        sAddr:document.getElementById('sAddr').value,sCity:document.getElementById('sCity').value,
+        sPin:document.getElementById('sPin').value,sState:document.getElementById('sState').value,
+        toCity:document.getElementById('rCity').value,
+        rName:document.getElementById('rName').value,rPhone:document.getElementById('rPhone').value,
+        rAddr:document.getElementById('rAddr').value,rCity:document.getElementById('rCity').value,
+        rPin:document.getElementById('rPin').value,rState:document.getElementById('rState').value,
+        weight:parseFloat(document.getElementById('pWeight').value),
+        length:+document.getElementById('pLen').value||0,
+        breadth:+document.getElementById('pBreadth').value||0,
+        height:+document.getElementById('pHeight').value||0,
+        pieces:+document.getElementById('pPieces').value||1,
+        desc:document.getElementById('pDesc').value,
+        insuredValue:document.getElementById('pInsure').value==='yes'?+document.getElementById('pValue').value:0,
+        isCOD:document.getElementById('isCOD').checked,
+        codAmount:+document.getElementById('codAmt').value||0,
+        pickupDate:document.getElementById('sPickup').value,
+        remarks:document.getElementById('pRemarks').value
+      },me);
+      document.getElementById('successBody').innerHTML=`
+        <div style="width:64px;height:64px;border-radius:50%;background:var(--success-bg);display:flex;align-items:center;justify-content:center;margin:0 auto 18px"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="var(--success)" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg></div>
+        <div style="font-family:'Space Grotesk',sans-serif;font-size:22px;font-weight:800;color:var(--navy);margin-bottom:6px">Shipment Booked!</div>
+        <div style="font-family:'JetBrains Mono',monospace;font-size:20px;font-weight:700;color:var(--blue);margin-bottom:16px">${s.awb}</div>
+        <div style="background:var(--bg);border-radius:10px;padding:14px;text-align:left;font-size:13.5px;line-height:1.75">
+          <div><strong>Carrier:</strong> ${U.carrierName(s.carrier)}</div>
+          <div><strong>To:</strong> ${s.rName} · ${s.rCity}</div>
+          <div><strong>Amount:</strong> ${U.inr(s.rates?.total)}</div>
+          <div><strong>Pickup:</strong> ${U.fmtDate(s.pickupDate)}</div>
+        </div>`;
+      document.getElementById('successModal').classList.add('open');
+    }catch(e){U.toast('Booking failed: '+e.message,'error');}
+    btn.disabled=false;btn.innerHTML='<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>Confirm & Book Shipment';
+  },700);
+}
+
+function bookAnother(){document.getElementById('successModal').classList.remove('open');goStep(1);_selectedCarrier='';_rates=[];}
+
+// BULK CSV
+function downloadTemplate(){U.downloadCSV('Shristi_Bulk_Template.csv',U.csvTemplate());U.toast('Template downloaded');}
+
+function loadDemoCSV(){
+  const demo=[
+    {rName:'Rahul Sharma',rPhone:'9876543210',rAddr:'12 Nehru Nagar',rCity:'Delhi',rPin:'110001',rState:'Delhi',weight:'1.5',length:'20',breadth:'15',height:'10',pieces:'1',desc:'Documents',insuredValue:'500',isCOD:'no',codAmount:'0',carrier:'dtdc',service:'standard',remarks:'Handle with care'},
+    {rName:'Priya Singh',rPhone:'9765432109',rAddr:'45 MG Road',rCity:'Bengaluru',rPin:'560001',rState:'Karnataka',weight:'2.0',length:'25',breadth:'20',height:'15',pieces:'1',desc:'Books',insuredValue:'1500',isCOD:'yes',codAmount:'1500',carrier:'delhivery',service:'standard',remarks:''},
+    {rName:'Amit Kumar',rPhone:'9654321098',rAddr:'78 Civil Lines',rCity:'Chennai',rPin:'600001',rState:'Tamil Nadu',weight:'0.8',length:'15',breadth:'12',height:'8',pieces:'2',desc:'Electronics',insuredValue:'8000',isCOD:'no',codAmount:'0',carrier:'bluedart',service:'express',remarks:'Fragile'},
+  ];
+  _csvData=demo;renderCSVPreview();
+}
+
+function parseCSV(input){
+  const file=input.files[0];if(!file)return;
+  Papa.parse(file,{header:true,skipEmptyLines:true,complete:res=>{
+    _csvData=res.data.map(r=>({
+      rName:r['Receiver Name']||r.rName||'',rPhone:r['Phone']||r.rPhone||'',
+      rAddr:r['Address']||r.rAddr||'',rCity:r['City']||r.rCity||'',
+      rPin:r['PIN']||r.rPin||'',rState:r['State']||r.rState||'',
+      weight:r['Weight(kg)']||r.weight||1,length:r['Length(cm)']||r.length||0,
+      breadth:r['Breadth(cm)']||r.breadth||0,height:r['Height(cm)']||r.height||0,
+      pieces:r['Pieces']||r.pieces||1,desc:r['Description']||r.desc||'General',
+      insuredValue:r['Declared Value']||r.insuredValue||0,
+      isCOD:(r['Is COD (yes/no)']||r.isCOD||'no').toLowerCase()==='yes',
+      codAmount:r['COD Amount']||r.codAmount||0,
+      carrier:r['Carrier (dtdc/maruti/bluedart/delhivery)']||r.carrier||'dtdc',
+      service:r['Service (standard/express)']||r.service||'standard',
+      remarks:r['Remarks']||r.remarks||''
+    }));
+    renderCSVPreview();
+  }});
+}
+
+function renderCSVPreview(){
+  if(!_csvData.length)return;
+  document.getElementById('csvPreviewCard').style.display='';
+  document.getElementById('csvPreviewTitle').textContent=`Preview — ${_csvData.length} Shipments`;
+  document.getElementById('csvHead').innerHTML='<tr><th>#</th><th>Receiver</th><th>Phone</th><th>City</th><th>Weight</th><th>Carrier</th><th>COD</th><th>Est. Rate</th></tr>';
+  let totalCost=0;
+  document.getElementById('csvBody').innerHTML=_csvData.slice(0,50).map((r,i)=>{
+    const rate=Rates.calc(r.carrier,r.rCity,+r.weight,+r.insuredValue,r.isCOD?+r.codAmount:0);
+    totalCost+=rate.total;
+    const cc=U.carrierColor(r.carrier),cbg=U.carrierBg(r.carrier);
+    return `<tr>
+      <td>${i+1}</td><td><strong>${r.rName}</strong></td><td>${r.rPhone}</td><td>${r.rCity}</td>
+      <td>${r.weight}kg</td>
+      <td><span class="badge" style="color:${cc};background:${cbg};font-size:11px">${U.carrierName(r.carrier)}</span></td>
+      <td>${r.isCOD?'<span class="badge badge-gold">COD</span>':'—'}</td>
+      <td>${U.inr(rate.total)}</td>
+    </tr>`;
+  }).join('');
+  document.getElementById('bulkSummaryCard').style.display='';
+  document.getElementById('bulkSummaryBody').innerHTML=`
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+      ${[['Total Shipments',_csvData.length],['Est. Total Cost',U.inr(totalCost)],['COD Shipments',_csvData.filter(r=>r.isCOD).length],['Carriers',new Set(_csvData.map(r=>r.carrier)).size+' carriers']].map(([l,v])=>`<div style="background:var(--bg);border-radius:8px;padding:12px"><div style="font-size:11px;color:var(--muted);text-transform:uppercase;margin-bottom:4px">${l}</div><div style="font-size:16px;font-weight:700;color:var(--navy)">${v}</div></div>`).join('')}
+    </div>`;
+}
+
+function clearCSV(){_csvData=[];document.getElementById('csvPreviewCard').style.display='none';document.getElementById('bulkSummaryCard').style.display='none';document.getElementById('csvFile').value='';}
+
+function confirmBulkBooking(){
+  if(!_csvData.length){U.toast('No CSV data loaded','error');return;}
+  const btn=document.getElementById('bulkSubmitBtn');
+  btn.disabled=true;btn.textContent='Booking…';
+  setTimeout(()=>{
+    const rows=_csvData.map(r=>({...r,sFrom:me.company||me.name,sPhone:me.phone||'8286361223',sAddr:me.pickupAddress?.street||'MIDC, Andheri East, Mumbai',sCity:'Mumbai',sPin:'400093',sState:'Maharashtra',toCity:r.rCity}));
+    const result=Bulk.create(rows,me);
+    _bookedShips=result.ships;
+    const total=result.ships.reduce((a,s)=>a+(s.rates?.total||0),0);
+    document.getElementById('bulkSuccessBody').innerHTML=`
+      <div style="text-align:center;padding:12px 0 24px">
+        <div style="width:56px;height:56px;border-radius:50%;background:var(--success-bg);display:flex;align-items:center;justify-content:center;margin:0 auto 14px"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="var(--success)" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg></div>
+        <div style="font-family:'Space Grotesk',sans-serif;font-size:20px;font-weight:800;color:var(--navy);margin-bottom:4px">${result.ships.length} Shipments Booked!</div>
+        <div style="font-size:14px;color:var(--muted);margin-bottom:18px">Order ID: <strong style="font-family:monospace">${result.orderId}</strong></div>
+        <div style="background:var(--bg);border-radius:10px;padding:14px;text-align:left;max-height:280px;overflow-y:auto">
+          <table style="width:100%;border-collapse:collapse">
+            <thead><tr style="font-size:11px;color:var(--muted);text-transform:uppercase"><th style="padding:6px">AWB</th><th style="padding:6px">Carrier</th><th style="padding:6px">Receiver</th><th style="padding:6px">City</th><th style="padding:6px">Amount</th></tr></thead>
+            <tbody>${result.ships.map(s=>`<tr style="border-top:1px solid var(--border);font-size:12.5px"><td style="padding:7px;font-family:monospace">${s.awb}</td><td style="padding:7px">${U.carrierName(s.carrier)}</td><td style="padding:7px">${s.rName}</td><td style="padding:7px">${s.rCity}</td><td style="padding:7px">${U.inr(s.rates?.total)}</td></tr>`).join('')}</tbody>
+          </table>
+        </div>
+      </div>`;
+    document.getElementById('bulkSuccessModal').classList.add('open');
+    clearCSV();btn.disabled=false;btn.textContent='Book All Shipments';
+  },900);
+}
+
+function downloadAWBSheet(){
+  if(!_bookedShips.length)return;
+  const rows=['AWB Number,Carrier,Service,Receiver Name,Phone,Address,City,PIN,Weight,Status,Amount (₹),Booked On'];
+  _bookedShips.forEach(s=>rows.push(`${s.awb},${U.carrierName(s.carrier)},${s.service},${s.rName},${s.rPhone},"${s.rAddr}",${s.rCity},${s.rPin},${s.weight}kg,${Ship.LABELS[s.status]},${s.rates?.total||0},${U.fmtDate(s.createdAt)}`));
+  U.downloadCSV(`Shristi_AWB_Sheet_${new Date().toISOString().slice(0,10)}.csv`,rows.join('\n'));
+  U.toast('AWB sheet downloaded');
+}
+</script>
+</body>
+</html>

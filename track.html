@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Track Shipments – Shristi Enterprises</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="style.css"/>
+<script src="app.js"></script>
+<style>
+.track-hero{background:linear-gradient(135deg,var(--navy) 0%,var(--navy2) 100%);padding:32px 28px;border-radius:var(--r-lg);margin-bottom:24px;position:relative;overflow:hidden;}
+.track-hero::before{content:'';position:absolute;top:-60px;right:-60px;width:220px;height:220px;border-radius:50%;background:rgba(255,255,255,0.04);}
+.track-hero-title{font-family:'Space Grotesk',sans-serif;font-size:22px;font-weight:800;color:#fff;margin-bottom:6px;position:relative;z-index:1;}
+.track-hero-sub{font-size:13.5px;color:rgba(255,255,255,0.6);margin-bottom:20px;position:relative;z-index:1;}
+.track-input-wrap{display:flex;gap:10px;flex-wrap:wrap;position:relative;z-index:1;}
+.track-textarea{flex:1;min-width:280px;padding:12px 16px;background:rgba(255,255,255,0.1);border:1.5px solid rgba(255,255,255,0.2);border-radius:10px;color:#fff;font-size:14px;font-family:'JetBrains Mono',monospace;resize:none;height:80px;outline:none;transition:border-color 0.2s;}
+.track-textarea:focus{border-color:rgba(255,255,255,0.5);}
+.track-textarea::placeholder{color:rgba(255,255,255,0.4);font-family:'Inter',sans-serif;}
+.track-ctrl{display:flex;flex-direction:column;gap:8px;}
+.track-carrier-sel{padding:10px 32px 10px 13px;background:rgba(255,255,255,0.1);border:1.5px solid rgba(255,255,255,0.2);border-radius:8px;color:#fff;font-size:13px;appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='7'%3E%3Cpath d='M1 1l4 4 4-4' stroke='white' stroke-width='1.5' fill='none'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 10px center;outline:none;cursor:pointer;}
+.track-carrier-sel option{background:#1E3A8A;color:#fff;}
+.track-go-btn{padding:12px 22px;background:#fff;color:var(--navy);border:none;border-radius:8px;font-size:13.5px;font-weight:700;cursor:pointer;font-family:'Space Grotesk',sans-serif;transition:all 0.2s;white-space:nowrap;display:flex;align-items:center;gap:7px;}
+.track-go-btn:hover{background:var(--gold);transform:translateY(-1px);}
+.track-go-btn svg{width:15px;height:15px;}
+/* RESULT CARDS */
+.result-list{display:flex;flex-direction:column;gap:16px;}
+.result-card{background:var(--white);border:1.5px solid var(--border);border-radius:var(--r-md);overflow:hidden;transition:box-shadow 0.2s;}
+.result-card:hover{box-shadow:var(--shadow-md);}
+.rc-header{padding:16px 20px;display:flex;align-items:center;justify-content:space-between;gap:12px;cursor:pointer;user-select:none;flex-wrap:wrap;}
+.rc-header-left{display:flex;align-items:center;gap:12px;flex-wrap:wrap;}
+.rc-awb{font-family:'JetBrains Mono',monospace;font-size:16px;font-weight:700;color:var(--navy);}
+.rc-toggle{width:28px;height:28px;border-radius:50%;border:1.5px solid var(--border);background:var(--white);display:flex;align-items:center;justify-content:center;cursor:pointer;transition:all 0.2s;flex-shrink:0;}
+.rc-toggle svg{width:14px;height:14px;color:var(--muted);transition:transform 0.25s;}
+.result-card.open .rc-toggle svg{transform:rotate(180deg);}
+.result-card.open .rc-toggle{background:var(--navy);border-color:var(--navy);}
+.result-card.open .rc-toggle svg{color:#fff;}
+.rc-body{display:none;padding:0 20px 20px;}
+.result-card.open .rc-body{display:block;animation:fadeIn 0.25s ease;}
+@keyframes fadeIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
+.rc-meta-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:18px;}
+.rc-meta{background:var(--bg);border-radius:8px;padding:11px 13px;}
+.rc-meta-lbl{font-size:10px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:0.07em;margin-bottom:3px;}
+.rc-meta-val{font-size:13.5px;font-weight:600;color:var(--text);}
+.rc-meta-val.gold{color:var(--gold);}
+.rc-carrier-note{padding:12px 16px;background:var(--blue-xlight);border:1px solid var(--blue-light);border-radius:8px;font-size:12.5px;color:var(--navy);display:flex;align-items:flex-start;gap:10px;margin-top:14px;}
+.rc-carrier-note svg{width:15px;height:15px;color:var(--blue);flex-shrink:0;margin-top:1px;}
+.rc-carrier-actions{display:flex;gap:8px;margin-top:8px;flex-wrap:wrap;}
+/* NOT FOUND */
+.rc-notfound{padding:16px 20px;font-size:13.5px;color:var(--muted);}
+/* SUMMARY BAR */
+.summary-bar{background:var(--white);border:1.5px solid var(--border);border-radius:var(--r-md);padding:14px 20px;margin-bottom:18px;display:flex;align-items:center;gap:20px;flex-wrap:wrap;}
+.sb-item{display:flex;align-items:center;gap:6px;font-size:13px;}
+.sb-dot{width:9px;height:9px;border-radius:50%;flex-shrink:0;}
+/* PRINT STYLES */
+@media print{
+  .sidebar,.topbar,.track-hero,.track-ctrl,.filter-bar,.no-print,.rc-toggle{display:none!important;}
+  .main{margin-left:0!important;}
+  .result-card{box-shadow:none!important;border:1px solid #ddd!important;break-inside:avoid;margin-bottom:12px;}
+  .rc-body{display:block!important;}
+  body{background:#fff;}
+  .rc-carrier-note{display:none;}
+}
+</style>
+</head>
+<body>
+<div class="app-layout">
+  <aside class="sidebar">
+    <div class="sidebar-logo">
+      <div class="sidebar-logo-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 8h14M5 8a2 2 0 1 0 0-4H3v16h2M5 8v12m14-8 2 8H7m10-8V4M7 16h10"/></svg></div>
+      <div class="sidebar-logo-text"><strong>SHRISTI</strong><span>shristi.enterprises</span></div>
+    </div>
+    <nav class="sidebar-nav">
+      <div class="nav-section-label">Main</div>
+      <a class="nav-item" href="dashboard.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>Dashboard</a>
+      <a class="nav-item" href="book.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 8h14M5 8a2 2 0 1 0 0-4H3v16h2M5 8v12m14-8 2 8H7m10-8V4M7 16h10"/></svg>Book Shipment</a>
+      <a class="nav-item active" href="track.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>Track Shipments</a>
+      <div class="nav-section-label">Reports</div>
+      <a class="nav-item" href="dashboard.html#shipments"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>All Shipments</a>
+    </nav>
+    <div class="sidebar-footer">
+      <div class="sidebar-user" onclick="Auth.logout()">
+        <div class="user-avatar" id="sideAvatar">?</div>
+        <div class="sidebar-user-info"><strong id="sideName">—</strong><span id="sideRole">—</span></div>
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.4)" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+      </div>
+    </div>
+  </aside>
+
+  <div class="main">
+    <div class="topbar">
+      <div class="topbar-left"><div class="page-title">Track Shipments</div></div>
+      <div class="topbar-right no-print">
+        <button class="topbar-btn" onclick="exportResults()" id="exportBtn" style="display:none"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/></svg>Export CSV</button>
+        <button class="topbar-btn" onclick="printReport()" id="printBtn" style="display:none"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>Print Report</button>
+        <a href="book.html" class="topbar-btn primary"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>New Booking</a>
+      </div>
+    </div>
+
+    <div class="page-content">
+      <!-- HERO INPUT -->
+      <div class="track-hero no-print">
+        <div class="track-hero-title">Multi-Shipment Tracker</div>
+        <div class="track-hero-sub">Track up to 50 shipments at once — enter AWB numbers separated by commas or one per line</div>
+        <div class="track-input-wrap">
+          <textarea class="track-textarea" id="awbInput" placeholder="DT12345678901, BD98765432100&#10;DL45678901234&#10;MR11223344556"></textarea>
+          <div class="track-ctrl">
+            <select class="track-carrier-sel" id="carrierFilter">
+              <option value="">All Carriers (Auto-detect)</option>
+              <option value="dtdc">DTDC Express</option>
+              <option value="maruti">Maruti Courier</option>
+              <option value="bluedart">BlueDart Express</option>
+              <option value="delhivery">Delhivery</option>
+            </select>
+            <button class="track-go-btn" onclick="doTrackAll()">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+              Track All
+            </button>
+            <button class="track-go-btn" style="background:rgba(255,255,255,0.12);color:#fff;border:1px solid rgba(255,255,255,0.2)" onclick="loadMyShipments()">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+              My Shipments
+            </button>
+          </div>
+        </div>
+        <div style="display:flex;gap:12px;margin-top:12px;flex-wrap:wrap;z-index:1;position:relative">
+          <span style="font-size:12px;color:rgba(255,255,255,0.5)">Carrier prefix guide:</span>
+          <span style="font-size:12px;color:rgba(255,255,255,0.7)"><span style="color:#ff8080">DT</span>→DTDC</span>
+          <span style="font-size:12px;color:rgba(255,255,255,0.7)"><span style="color:#ffd080">MR</span>→Maruti</span>
+          <span style="font-size:12px;color:rgba(255,255,255,0.7)"><span style="color:#80b0ff">BD</span>→BlueDart</span>
+          <span style="font-size:12px;color:rgba(255,255,255,0.7)"><span style="color:#ffb080">DL</span>→Delhivery</span>
+          <span style="font-size:12px;color:rgba(255,255,255,0.5)">|</span>
+          <span style="font-size:12px;color:rgba(255,255,255,0.7)"><span style="color:#80ffb0">SHR</span>→Shristi Internal</span>
+        </div>
+      </div>
+
+      <!-- FILTER + SUMMARY -->
+      <div id="summaryArea" style="display:none">
+        <div class="summary-bar no-print" id="summaryBar"></div>
+        <div class="filter-bar no-print">
+          <div class="search-box"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg><input id="filterSearch" placeholder="Filter by AWB, name, city…" oninput="applyFilters()"/></div>
+          <select class="filter-select" id="filterStatus" onchange="applyFilters()">
+            <option value="">All Statuses</option>
+            <option value="booked">Booked</option>
+            <option value="picked_up">Picked Up</option>
+            <option value="in_transit">In Transit</option>
+            <option value="out_for_delivery">Out for Delivery</option>
+            <option value="delivered">Delivered</option>
+            <option value="failed_delivery">Failed</option>
+          </select>
+          <select class="filter-select" id="filterCarrier" onchange="applyFilters()">
+            <option value="">All Carriers</option>
+            <option value="dtdc">DTDC</option>
+            <option value="maruti">Maruti</option>
+            <option value="bluedart">BlueDart</option>
+            <option value="delhivery">Delhivery</option>
+          </select>
+          <button class="btn btn-ghost btn-sm" onclick="expandAll()">Expand All</button>
+          <button class="btn btn-ghost btn-sm" onclick="collapseAll()">Collapse All</button>
+        </div>
+      </div>
+
+      <!-- PRINT HEADER (only visible on print) -->
+      <div id="printHeader" style="display:none">
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;padding-bottom:16px;border-bottom:2px solid #0B1D6E">
+          <div><div style="font-family:'Space Grotesk',sans-serif;font-size:22px;font-weight:800;color:#0B1D6E">SHRISTI ENTERPRISES</div><div style="font-size:12px;color:#64748B">Tracking Report · Generated: <span id="printDate"></span></div></div>
+          <div style="text-align:right;font-size:12px;color:#64748B"><div>GSTIN: 27BLGPC8230C1ZJ</div><div>+91 82863 61223 · shristi.enterprises</div><div>MIDC, Andheri East, Mumbai – 400093</div></div>
+        </div>
+      </div>
+
+      <!-- RESULTS -->
+      <div class="result-list" id="resultList"></div>
+
+      <!-- EMPTY STATE -->
+      <div id="emptyState" class="card" style="display:none">
+        <div class="empty-state">
+          <div class="empty-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg></div>
+          <div class="empty-title">No Shipments Found</div>
+          <div class="empty-sub">No shipments match your search. Try different AWB numbers or check the carrier selection.</div>
+          <a href="book.html" class="btn btn-primary" style="margin-top:4px">Book a Shipment</a>
+        </div>
+      </div>
+
+      <!-- CARRIER HELP -->
+      <div class="card no-print" style="margin-top:24px">
+        <div class="card-header"><div class="card-title">Carrier Tracking Information</div></div>
+        <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:0">
+          ${[
+            {n:'DTDC Express',c:'#DC2626',note:'Requires CAPTCHA on their site. AWB is auto-copied when you click the link.',url:'dtdc.com/track-your-shipment'},
+            {n:'Maruti Courier',c:'#D97706',note:'Enter AWB on their tracking page for real-time surface shipment updates.',url:'maruticourier.com/track'},
+            {n:'BlueDart Express',c:'#1D4ED8',note:'AWB is pre-filled in the URL. Click Track on BlueDart for instant air tracking.',url:'bluedart.com/tracking'},
+            {n:'Delhivery',c:'#EA580C',note:'AWB pre-filled. Full timeline with delivery attempts loads automatically.',url:'delhivery.com/tracking'}
+          ].map((c,i)=>`<div style="padding:18px 20px;${i>0?'border-left:1px solid var(--border)':''}">
+            <div style="font-size:14px;font-weight:800;color:${c.c};margin-bottom:4px">${c.n}</div>
+            <div style="font-size:12px;color:var(--muted);line-height:1.6;margin-bottom:8px">${c.note}</div>
+            <div style="font-size:11px;color:var(--blue)">${c.url}</div>
+          </div>`).join('')}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+const me = Auth.guard();
+document.getElementById('sideAvatar').textContent = me.name.charAt(0);
+document.getElementById('sideName').textContent = me.name;
+document.getElementById('sideRole').textContent = U.cap(me.role);
+
+let _results = [], _filtered = [];
+
+// Auto-detect carrier from AWB prefix
+function detectCarrier(awb) {
+  const a = awb.toUpperCase();
+  if(a.startsWith('DT')) return 'dtdc';
+  if(a.startsWith('MR')) return 'maruti';
+  if(a.startsWith('BD')) return 'bluedart';
+  if(a.startsWith('DL')) return 'delhivery';
+  if(a.startsWith('SHR')) return 'internal';
+  return null;
+}
+
+function doTrackAll() {
+  const raw = document.getElementById('awbInput').value;
+  const globalCarrier = document.getElementById('carrierFilter').value;
+  const awbs = raw.split(/[\n,;]+/).map(s=>s.trim().toUpperCase()).filter(Boolean).slice(0,50);
+  if(!awbs.length) { U.toast('Please enter at least one AWB number','error'); return; }
+
+  _results = awbs.map(awb => {
+    // Check internal shipments first
+    const internal = Ship.byAWB(awb);
+    if(internal) return { awb, found: true, internal: true, ship: internal, carrier: internal.carrier };
+
+    // External carrier
+    const carrier = globalCarrier || detectCarrier(awb);
+    return { awb, found: false, internal: false, carrier: carrier||'dtdc' };
+  });
+
+  _filtered = [..._results];
+  renderResults();
+  updateSummary();
+  document.getElementById('exportBtn').style.display = '';
+  document.getElementById('printBtn').style.display = '';
+  document.getElementById('summaryArea').style.display = '';
+}
+
+function loadMyShipments() {
+  const ships = Ship.byUser(me.id).slice(0, 50);
+  if(!ships.length) { U.toast('No shipments found in your account','info'); return; }
+  document.getElementById('awbInput').value = ships.map(s=>s.awb).join('\n');
+  _results = ships.map(s => ({ awb: s.awb, found: true, internal: true, ship: s, carrier: s.carrier }));
+  _filtered = [..._results];
+  renderResults();
+  updateSummary();
+  document.getElementById('exportBtn').style.display = '';
+  document.getElementById('printBtn').style.display = '';
+  document.getElementById('summaryArea').style.display = '';
+  U.toast(`Loaded ${ships.length} shipments`);
+}
+
+function renderResults() {
+  const list = document.getElementById('resultList');
+  const empty = document.getElementById('emptyState');
+  if(!_filtered.length) { list.innerHTML=''; empty.style.display=''; return; }
+  empty.style.display = 'none';
+
+  list.innerHTML = _filtered.map((r, idx) => {
+    if(!r.found) return renderExternal(r, idx);
+    return renderInternal(r, idx);
+  }).join('');
+}
+
+function renderInternal(r, idx) {
+  const s = r.ship;
+  const sc = U.statusColor(s.status), sbg = U.statusBg(s.status);
+  const cc = U.carrierColor(s.carrier), cbg = U.carrierBg(s.carrier);
+  const d = new Date(s.createdAt); d.setDate(d.getDate()+3);
+
+  return `<div class="result-card" id="rc_${idx}">
+    <div class="rc-header" onclick="toggleCard(${idx})">
+      <div class="rc-header-left">
+        <span class="rc-awb">${s.awb}</span>
+        <span class="badge" style="color:${cc};background:${cbg};border:1px solid ${cc}22">${U.carrierName(s.carrier)}</span>
+        <span class="badge" style="color:${sc};background:${sbg};border:1px solid ${sc}33">${Ship.LABELS[s.status]||s.status}</span>
+        <span class="text-sm text-muted">${s.rName} · ${s.rCity}</span>
+      </div>
+      <div style="display:flex;align-items:center;gap:10px">
+        <span class="text-sm text-muted no-print">${U.ago(s.createdAt)}</span>
+        <div class="rc-toggle"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg></div>
+      </div>
+    </div>
+    <div class="rc-body">
+      <div class="rc-meta-grid">
+        <div class="rc-meta"><div class="rc-meta-lbl">From</div><div class="rc-meta-val">${s.sCity}, ${s.sState||'MH'}</div></div>
+        <div class="rc-meta"><div class="rc-meta-lbl">To</div><div class="rc-meta-val">${s.rCity}, ${s.rPin}</div></div>
+        <div class="rc-meta"><div class="rc-meta-lbl">Est. Delivery</div><div class="rc-meta-val gold">${s.status==='delivered'?U.fmtDate(s.deliveredAt):d.toLocaleDateString('en-IN',{weekday:'short',day:'numeric',month:'short'})}</div></div>
+        <div class="rc-meta"><div class="rc-meta-lbl">Weight / Amount</div><div class="rc-meta-val">${s.weight}kg · ${U.inr(s.rates?.total)}</div></div>
+      </div>
+      <div class="timeline">
+        ${(s.events||[]).map((ev,i,arr)=>{
+          const isDone = i<arr.length-1 || s.status==='delivered';
+          const isActive = i===arr.length-1 && s.status!=='delivered';
+          return `<div class="tl-item${isDone?' done':isActive?' active':''}">
+            <div class="tl-dot"></div>
+            <div class="tl-event">${ev.label}</div>
+            <div class="tl-meta">${U.fmtDT(ev.ts)}${ev.loc?' · '+ev.loc:''}</div>
+            ${ev.note&&ev.note!=='Updated status'?`<div class="tl-meta" style="font-style:italic;margin-top:2px">${ev.note}</div>`:''}
+          </div>`;
+        }).join('')}
+      </div>
+      <div class="rc-carrier-note no-print">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg>
+        <div>
+          <div>Live data for this shipment is managed by Shristi Enterprises. For real-time carrier scan data, check the carrier's official website.</div>
+          <div class="rc-carrier-actions">
+            <button class="btn btn-primary btn-sm" onclick="window.open('${U.trackURL(s.carrier,s.awb)}','_blank');${s.carrier==='dtdc'?`navigator.clipboard.writeText('${s.awb}').catch(()=>{})`:''}" >Open ${U.carrierName(s.carrier)} Tracker ↗</button>
+            ${s.carrier==='dtdc'?`<button class="btn btn-outline btn-sm" onclick="navigator.clipboard.writeText('${s.awb}').then(()=>{U.toast('AWB copied')})">📋 Copy AWB for CAPTCHA</button>`:''}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>`;
+}
+
+function renderExternal(r, idx) {
+  const cc = U.carrierColor(r.carrier), cbg = U.carrierBg(r.carrier);
+  const trackUrl = U.trackURL(r.carrier, r.awb);
+  return `<div class="result-card" id="rc_${idx}">
+    <div class="rc-header" onclick="toggleCard(${idx})">
+      <div class="rc-header-left">
+        <span class="rc-awb">${r.awb}</span>
+        <span class="badge" style="color:${cc};background:${cbg};border:1px solid ${cc}22">${U.carrierName(r.carrier)}</span>
+        <span class="badge badge-gray">Not in Shristi System</span>
+      </div>
+      <div class="rc-toggle"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg></div>
+    </div>
+    <div class="rc-body">
+      <div class="alert alert-info" style="margin-bottom:14px">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg>
+        <div>This AWB was not found in our system. It may be a direct carrier booking. Click below to track on the carrier's official website.</div>
+      </div>
+      <div class="rc-carrier-actions">
+        <button class="btn btn-primary btn-sm" onclick="window.open('${trackUrl}','_blank');${r.carrier==='dtdc'?`navigator.clipboard.writeText('${r.awb}').catch(()=>{})`:''}" >Open ${U.carrierName(r.carrier)} Tracker ↗</button>
+        <button class="btn btn-outline btn-sm" onclick="navigator.clipboard.writeText('${r.awb}').then(()=>{U.toast('AWB copied to clipboard')})">📋 Copy AWB</button>
+      </div>
+      ${r.carrier==='dtdc'?'<div class="form-hint" style="margin-top:8px;color:var(--warning)">⚠️ DTDC requires CAPTCHA — your AWB has been copied to clipboard for easy pasting.</div>':''}
+    </div>
+  </div>`;
+}
+
+function toggleCard(idx) {
+  document.getElementById('rc_'+idx).classList.toggle('open');
+}
+function expandAll() { document.querySelectorAll('.result-card').forEach(c=>c.classList.add('open')); }
+function collapseAll() { document.querySelectorAll('.result-card').forEach(c=>c.classList.remove('open')); }
+
+function updateSummary() {
+  const internal = _filtered.filter(r=>r.found);
+  const statCounts = {};
+  internal.forEach(r=>{ const s=r.ship.status; statCounts[s]=(statCounts[s]||0)+1; });
+  const notFound = _filtered.filter(r=>!r.found).length;
+
+  const parts = Object.entries(statCounts).map(([s,n])=>
+    `<div class="sb-item"><div class="sb-dot" style="background:${U.statusColor(s)}"></div><span>${n} ${Ship.LABELS[s]||s}</span></div>`
+  );
+  if(notFound) parts.push(`<div class="sb-item"><div class="sb-dot" style="background:var(--muted)"></div><span>${notFound} Not in System</span></div>`);
+
+  document.getElementById('summaryBar').innerHTML = `
+    <strong class="text-sm text-navy">${_filtered.length} Shipments</strong>
+    <div style="width:1px;height:20px;background:var(--border)"></div>
+    ${parts.join('')}`;
+}
+
+function applyFilters() {
+  const q = (document.getElementById('filterSearch').value||'').toLowerCase();
+  const st = document.getElementById('filterStatus').value;
+  const ca = document.getElementById('filterCarrier').value;
+  _filtered = _results.filter(r => {
+    if(ca && r.carrier !== ca) return false;
+    if(st && (!r.found || r.ship.status !== st)) return false;
+    if(q) {
+      const match = r.awb.toLowerCase().includes(q) ||
+        (r.found && (r.ship.rName.toLowerCase().includes(q) || r.ship.rCity.toLowerCase().includes(q)));
+      if(!match) return false;
+    }
+    return true;
+  });
+  renderResults();
+  updateSummary();
+}
+
+function exportResults() {
+  if(!_results.length) return;
+  const rows = ['AWB Number,Carrier,Receiver,City,PIN,Weight,Status,Last Update,Amount (₹),Carrier Track URL'];
+  _results.forEach(r => {
+    if(r.found) {
+      const s = r.ship;
+      const lastEv = s.events?.[s.events.length-1];
+      rows.push(`${s.awb},${U.carrierName(s.carrier)},${s.rName},${s.rCity},${s.rPin},${s.weight}kg,${Ship.LABELS[s.status]},${U.fmtDT(lastEv?.ts)},${s.rates?.total||0},${U.trackURL(s.carrier,s.awb)}`);
+    } else {
+      rows.push(`${r.awb},${U.carrierName(r.carrier)},—,—,—,—,Not in System,—,—,${U.trackURL(r.carrier,r.awb)}`);
+    }
+  });
+  U.downloadCSV(`Shristi_Tracking_Report_${new Date().toISOString().slice(0,10)}.csv`, rows.join('\n'));
+  U.toast('Tracking report exported as CSV');
+}
+
+function printReport() {
+  expandAll();
+  document.getElementById('printHeader').style.display = 'block';
+  document.getElementById('printDate').textContent = new Date().toLocaleString('en-IN');
+  setTimeout(()=>{
+    window.print();
+    document.getElementById('printHeader').style.display = 'none';
+  }, 300);
+}
+
+// Auto-load if URL has AWBs
+const urlAWBs = new URLSearchParams(location.search).get('awbs');
+if(urlAWBs) {
+  document.getElementById('awbInput').value = urlAWBs.replace(/,/g,'\n');
+  setTimeout(doTrackAll, 300);
+}
+</script>
+</body>
+</html>

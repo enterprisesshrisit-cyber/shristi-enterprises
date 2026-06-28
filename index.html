@@ -1,0 +1,674 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Shristi Enterprises – India's Premier Courier Broker | shristi.enterprises</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+<style>
+:root{--navy:#0B1D6E;--navy2:#1E3A8A;--blue:#2563EB;--blue2:#3B82F6;--blue-light:#DBEAFE;--blue-xlight:#EFF6FF;--gold:#C9A84C;--gold2:#E2B354;--gold-light:#FEF9EE;--text:#0F172A;--text2:#334155;--muted:#64748B;--border:#E2E8F0;--white:#FFFFFF;--bg:#F4F7FF;--success:#059669;--r:12px;}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{font-family:'Inter',sans-serif;background:var(--white);color:var(--text);-webkit-font-smoothing:antialiased;overflow-x:hidden;}
+::-webkit-scrollbar{width:5px;} ::-webkit-scrollbar-thumb{background:#CBD5E1;border-radius:3px;}
+a{text-decoration:none;color:inherit;}
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:500;background:rgba(255,255,255,0.92);backdrop-filter:blur(16px);border-bottom:1px solid var(--border);padding:0;transition:box-shadow 0.3s;}
+nav.scrolled{box-shadow:0 2px 16px rgba(11,29,110,0.1);}
+.nav-inner{max-width:1220px;margin:0 auto;padding:0 24px;height:64px;display:flex;align-items:center;justify-content:space-between;}
+.nav-logo{display:flex;align-items:center;gap:12px;}
+.nav-logo-icon{width:38px;height:38px;border-radius:10px;background:linear-gradient(135deg,var(--navy),var(--blue));display:flex;align-items:center;justify-content:center;box-shadow:0 4px 12px rgba(11,29,110,0.3);}
+.nav-logo-icon svg{width:20px;height:20px;color:#fff;}
+.nav-logo-text strong{display:block;font-family:'Space Grotesk',sans-serif;font-size:15px;font-weight:700;color:var(--navy);}
+.nav-logo-text span{font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:0.08em;}
+.nav-links{display:flex;align-items:center;gap:4px;}
+.nav-links a{padding:7px 14px;border-radius:8px;font-size:13.5px;font-weight:500;color:var(--text2);transition:all 0.2s;}
+.nav-links a:hover{background:var(--bg);color:var(--navy);}
+.nav-links a.active{color:var(--blue);font-weight:600;}
+.nav-cta-group{display:flex;align-items:center;gap:8px;}
+.btn-nav-login{padding:8px 18px;border-radius:8px;font-size:13.5px;font-weight:600;color:var(--navy);border:1.5px solid var(--border);background:var(--white);cursor:pointer;transition:all 0.2s;}
+.btn-nav-login:hover{border-color:var(--navy);background:var(--bg);}
+.btn-nav-signup{padding:8px 18px;border-radius:8px;font-size:13.5px;font-weight:600;color:#fff;background:var(--navy);cursor:pointer;transition:all 0.2s;box-shadow:0 2px 8px rgba(11,29,110,0.3);}
+.btn-nav-signup:hover{background:var(--navy2);transform:translateY(-1px);}
+/* HERO */
+.hero{padding:120px 0 80px;background:linear-gradient(160deg,#F0F4FF 0%,#FFFFFF 50%,#F8FAFF 100%);position:relative;overflow:hidden;}
+.hero::before{content:'';position:absolute;top:-100px;right:-150px;width:700px;height:700px;border-radius:50%;background:radial-gradient(circle,rgba(37,99,235,0.07) 0%,transparent 70%);pointer-events:none;}
+.hero::after{content:'';position:absolute;bottom:-80px;left:-80px;width:400px;height:400px;border-radius:50%;background:radial-gradient(circle,rgba(201,168,76,0.08) 0%,transparent 70%);pointer-events:none;}
+.hero-inner{max-width:1220px;margin:0 auto;padding:0 24px;display:grid;grid-template-columns:1fr 1fr;gap:72px;align-items:center;}
+.hero-eyebrow{display:inline-flex;align-items:center;gap:8px;background:var(--gold-light);border:1px solid rgba(201,168,76,0.3);border-radius:20px;padding:5px 14px;font-size:12px;font-weight:700;color:#92620A;text-transform:uppercase;letter-spacing:0.08em;margin-bottom:20px;}
+.hero-eyebrow span{width:6px;height:6px;border-radius:50%;background:var(--gold);animation:blink 2s infinite;}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:0.3}}
+h1.hero-title{font-family:'Space Grotesk',sans-serif;font-size:clamp(36px,4.5vw,58px);font-weight:800;color:var(--navy);line-height:1.1;letter-spacing:-0.03em;margin-bottom:18px;}
+h1.hero-title .accent{background:linear-gradient(135deg,var(--blue) 0%,var(--gold) 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+.hero-sub{font-size:17px;color:var(--muted);line-height:1.75;max-width:480px;margin-bottom:32px;}
+.hero-btns{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:40px;}
+.btn-hero-primary{display:inline-flex;align-items:center;gap:8px;padding:13px 26px;background:var(--navy);color:#fff;border-radius:10px;font-size:14.5px;font-weight:700;font-family:'Space Grotesk',sans-serif;box-shadow:0 4px 20px rgba(11,29,110,0.3);transition:all 0.25s;}
+.btn-hero-primary:hover{background:var(--navy2);transform:translateY(-2px);box-shadow:0 8px 32px rgba(11,29,110,0.38);}
+.btn-hero-secondary{display:inline-flex;align-items:center;gap:8px;padding:13px 26px;background:var(--white);color:var(--navy);border-radius:10px;font-size:14.5px;font-weight:700;font-family:'Space Grotesk',sans-serif;border:1.5px solid var(--border);transition:all 0.25s;}
+.btn-hero-secondary:hover{border-color:var(--navy);background:var(--bg);transform:translateY(-2px);}
+.hero-stats{display:flex;gap:28px;padding-top:28px;border-top:1px solid var(--border);}
+.h-stat .num{font-family:'Space Grotesk',sans-serif;font-size:26px;font-weight:800;color:var(--navy);}
+.h-stat .num span{color:var(--blue);}
+.h-stat .lbl{font-size:11.5px;color:var(--muted);margin-top:2px;text-transform:uppercase;letter-spacing:0.05em;}
+/* 3D DASHBOARD MOCKUP */
+.hero-visual{perspective:1200px;}
+.mockup-wrap{transform:rotateX(6deg) rotateY(-14deg) rotateZ(2deg);transform-style:preserve-3d;border-radius:16px;box-shadow:0 2px 4px rgba(0,0,0,0.04),0 12px 28px rgba(11,29,110,0.12),0 32px 64px rgba(11,29,110,0.14),0 0 0 1px rgba(11,29,110,0.06);background:var(--white);overflow:hidden;border:1px solid rgba(226,232,240,0.8);transition:transform 0.5s ease;}
+.hero-visual:hover .mockup-wrap{transform:rotateX(3deg) rotateY(-8deg) rotateZ(1deg);}
+.mock-topbar{background:var(--navy);padding:10px 16px;display:flex;align-items:center;gap:8px;}
+.mock-dot{width:10px;height:10px;border-radius:50%;}
+.mock-search{flex:1;background:rgba(255,255,255,0.1);border-radius:6px;height:20px;margin-left:8px;}
+.mock-body{padding:14px;background:#F8FAFD;}
+.mock-stats-row{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:12px;}
+.mock-stat{background:var(--white);border-radius:8px;padding:10px;border:1px solid var(--border);}
+.mock-stat-num{font-family:'Space Grotesk',sans-serif;font-size:16px;font-weight:800;color:var(--navy);}
+.mock-stat-lbl{font-size:9px;color:var(--muted);margin-top:2px;}
+.mock-stat-bar{height:3px;border-radius:2px;margin-top:6px;}
+.mock-table-wrap{background:var(--white);border-radius:8px;border:1px solid var(--border);overflow:hidden;}
+.mock-table-head{background:#F8FAFD;display:grid;grid-template-columns:1.5fr 1fr 1fr 1fr 0.8fr;padding:7px 12px;gap:8px;}
+.mock-th{font-size:8px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:0.06em;}
+.mock-row{display:grid;grid-template-columns:1.5fr 1fr 1fr 1fr 0.8fr;padding:8px 12px;gap:8px;border-top:1px solid var(--border);align-items:center;}
+.mock-cell{font-size:9px;color:var(--text2);}
+.mock-awb{font-family:monospace;font-size:8.5px;font-weight:600;color:var(--navy);}
+.mock-badge{display:inline-block;padding:2px 7px;border-radius:10px;font-size:7.5px;font-weight:700;}
+.mock-badge.transit{background:#FFF7ED;color:#EA580C;}
+.mock-badge.delivered{background:#ECFDF5;color:#059669;}
+.mock-badge.pickup{background:#EFF6FF;color:#2563EB;}
+/* TRACK WIDGET */
+.track-widget{background:var(--white);border:1px solid var(--border);border-radius:16px;padding:28px 32px;margin:56px 0;box-shadow:0 4px 6px rgba(0,0,0,0.04),0 16px 48px rgba(11,29,110,0.1);}
+.track-widget-title{font-family:'Space Grotesk',sans-serif;font-size:22px;font-weight:700;color:var(--navy);margin-bottom:6px;}
+.track-widget-sub{font-size:14px;color:var(--muted);margin-bottom:20px;}
+.track-form{display:flex;gap:10px;flex-wrap:wrap;}
+.track-input{flex:1;min-width:260px;padding:12px 16px;border:1.5px solid var(--border);border-radius:10px;font-size:14px;outline:none;transition:all 0.2s;}
+.track-input:focus{border-color:var(--blue);box-shadow:0 0 0 3px rgba(37,99,235,0.1);}
+.track-select{padding:12px 36px 12px 14px;border:1.5px solid var(--border);border-radius:10px;font-size:14px;outline:none;appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='7'%3E%3Cpath d='M1 1l4 4 4-4' stroke='%2364748B' stroke-width='1.5' fill='none'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 12px center;cursor:pointer;transition:border-color 0.2s;}
+.track-select:focus{border-color:var(--blue);}
+.track-btn{padding:12px 28px;background:var(--navy);color:#fff;border:none;border-radius:10px;font-size:14px;font-weight:700;cursor:pointer;display:flex;align-items:center;gap:8px;transition:all 0.25s;font-family:'Space Grotesk',sans-serif;white-space:nowrap;box-shadow:0 4px 16px rgba(11,29,110,0.25);}
+.track-btn:hover{background:var(--navy2);transform:translateY(-1px);}
+.carrier-pills{display:flex;gap:8px;margin-top:14px;flex-wrap:wrap;}
+.cp{padding:4px 12px;border-radius:20px;font-size:11.5px;font-weight:700;border:1.5px solid;letter-spacing:0.04em;}
+.cp-dtdc{color:#DC2626;border-color:rgba(220,38,38,0.2);background:#FEF2F2;}
+.cp-bd{color:#1D4ED8;border-color:rgba(29,78,216,0.2);background:#EFF6FF;}
+.cp-dl{color:#EA580C;border-color:rgba(234,88,12,0.2);background:#FFF7ED;}
+.cp-mr{color:#92620A;border-color:rgba(201,168,76,0.3);background:var(--gold-light);}
+/* SECTIONS */
+.container{max-width:1220px;margin:0 auto;padding:0 24px;}
+.section{padding:80px 0;}
+.section-alt{background:var(--bg);}
+.section-label{display:flex;align-items:center;gap:8px;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.12em;color:var(--blue);margin-bottom:12px;}
+.section-label::before{content:'';width:28px;height:2px;background:var(--gold);border-radius:1px;}
+.section-title{font-family:'Space Grotesk',sans-serif;font-size:clamp(26px,3.5vw,40px);font-weight:800;color:var(--navy);letter-spacing:-0.02em;margin-bottom:12px;line-height:1.15;}
+.section-sub{font-size:16px;color:var(--muted);line-height:1.75;max-width:540px;}
+.section-head{margin-bottom:52px;}
+.section-head.ctr{text-align:center;}.section-head.ctr .section-sub{margin:0 auto;}
+/* SERVICES GRID */
+.srv-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;}
+.srv-card{background:var(--white);border:1.5px solid var(--border);border-radius:16px;padding:28px 24px;transition:all 0.3s;position:relative;overflow:hidden;}
+.srv-card::after{content:'';position:absolute;bottom:0;left:0;right:0;height:3px;background:var(--sc-accent,var(--blue));opacity:0;transition:opacity 0.3s;}
+.srv-card:hover{box-shadow:0 4px 6px rgba(0,0,0,0.04),0 16px 48px rgba(11,29,110,0.1);transform:translateY(-4px);border-color:transparent;}
+.srv-card:hover::after{opacity:1;}
+.srv-icon{width:48px;height:48px;border-radius:12px;display:flex;align-items:center;justify-content:center;margin-bottom:18px;}
+.srv-icon svg{width:24px;height:24px;}
+.srv-card h3{font-family:'Space Grotesk',sans-serif;font-size:16px;font-weight:700;color:var(--navy);margin-bottom:8px;}
+.srv-card p{font-size:13.5px;color:var(--muted);line-height:1.7;}
+/* CARRIERS */
+.carrier-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;}
+.c-card{background:var(--white);border:1.5px solid var(--border);border-radius:16px;padding:24px;text-align:center;transition:all 0.3s;}
+.c-card:hover{box-shadow:0 8px 32px rgba(11,29,110,0.1);transform:translateY(-3px);border-color:transparent;}
+.c-name{font-family:'Space Grotesk',sans-serif;font-size:20px;font-weight:900;letter-spacing:0.04em;margin-bottom:5px;}
+.c-mode{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:0.08em;margin-bottom:16px;}
+.c-feat{display:flex;align-items:center;gap:7px;font-size:12.5px;color:var(--muted);margin-bottom:6px;text-align:left;}
+.c-feat svg{width:13px;height:13px;color:var(--success);flex-shrink:0;}
+/* PROCESS */
+.process-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:24px;position:relative;}
+.process-grid::before{content:'';position:absolute;top:24px;left:12%;right:12%;height:2px;background:linear-gradient(90deg,var(--navy),var(--blue),var(--gold));z-index:0;border-radius:1px;}
+.proc-step{text-align:center;position:relative;z-index:1;}
+.proc-num{width:48px;height:48px;border-radius:50%;background:var(--navy);color:#fff;font-family:'Space Grotesk',sans-serif;font-size:18px;font-weight:800;display:flex;align-items:center;justify-content:center;margin:0 auto 16px;box-shadow:0 0 0 6px var(--white),0 0 0 7px var(--border),0 4px 16px rgba(11,29,110,0.2);}
+.proc-step h4{font-family:'Space Grotesk',sans-serif;font-size:14px;font-weight:700;color:var(--navy);margin-bottom:6px;}
+.proc-step p{font-size:12.5px;color:var(--muted);line-height:1.65;}
+/* PRICING */
+.pricing-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;align-items:start;}
+.price-card{background:var(--white);border:1.5px solid var(--border);border-radius:20px;padding:32px 28px;position:relative;overflow:hidden;transition:all 0.3s;}
+.price-card:hover{box-shadow:var(--shadow-md);transform:translateY(-4px);}
+.price-card.featured{border-color:var(--navy);box-shadow:0 8px 32px rgba(11,29,110,0.15);}
+.price-card.featured::before{content:'';position:absolute;top:0;left:0;right:0;height:4px;background:linear-gradient(90deg,var(--navy),var(--blue),var(--gold));}
+.featured-tag{position:absolute;top:20px;right:20px;background:var(--gold);color:var(--navy);font-size:10px;font-weight:800;padding:3px 10px;border-radius:20px;text-transform:uppercase;letter-spacing:0.06em;}
+.plan-name{font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:var(--muted);margin-bottom:8px;}
+.plan-price{font-family:'Space Grotesk',sans-serif;font-size:36px;font-weight:800;color:var(--navy);margin-bottom:4px;}
+.plan-price span{font-size:16px;font-weight:400;color:var(--muted);}
+.plan-desc{font-size:13px;color:var(--muted);line-height:1.6;margin-bottom:22px;padding-bottom:22px;border-bottom:1px solid var(--border);}
+.plan-feat{display:flex;align-items:flex-start;gap:9px;font-size:13.5px;color:var(--text2);margin-bottom:10px;}
+.plan-feat svg{width:16px;height:16px;color:var(--success);flex-shrink:0;margin-top:1px;}
+.plan-feat.no svg{color:var(--muted);}
+.plan-feat.no{color:var(--muted);opacity:0.6;}
+.plan-cta{display:block;width:100%;padding:12px;border-radius:10px;text-align:center;font-size:14px;font-weight:700;margin-top:22px;transition:all 0.25s;cursor:pointer;font-family:'Space Grotesk',sans-serif;}
+.plan-cta.navy{background:var(--navy);color:#fff;border:none;box-shadow:0 4px 16px rgba(11,29,110,0.25);}
+.plan-cta.navy:hover{background:var(--navy2);transform:translateY(-1px);}
+.plan-cta.outline{background:transparent;color:var(--navy);border:1.5px solid var(--border);}
+.plan-cta.outline:hover{border-color:var(--navy);background:var(--bg);}
+/* TESTIMONIALS */
+.testi-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;}
+.testi-card{background:var(--white);border:1.5px solid var(--border);border-radius:16px;padding:28px;transition:all 0.3s;}
+.testi-card:hover{box-shadow:var(--shadow);transform:translateY(-3px);}
+.testi-stars{font-size:14px;color:var(--gold);letter-spacing:2px;margin-bottom:14px;}
+.testi-text{font-size:13.5px;color:var(--text2);line-height:1.75;font-style:italic;margin-bottom:18px;}
+.testi-author{display:flex;align-items:center;gap:10px;}
+.t-av{width:38px;height:38px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:'Space Grotesk',sans-serif;font-size:13px;font-weight:800;color:#fff;flex-shrink:0;}
+.t-name{font-size:13.5px;font-weight:700;color:var(--navy);}
+.t-role{font-size:11.5px;color:var(--muted);margin-top:1px;}
+/* CTA BAND */
+.cta-band{background:linear-gradient(135deg,var(--navy) 0%,var(--navy2) 100%);padding:72px 0;position:relative;overflow:hidden;}
+.cta-band::before{content:'';position:absolute;top:-80px;right:-80px;width:400px;height:400px;border-radius:50%;background:rgba(255,255,255,0.04);}
+.cta-band::after{content:'';position:absolute;bottom:-60px;left:-60px;width:300px;height:300px;border-radius:50%;background:rgba(201,168,76,0.08);}
+.cta-inner{max-width:700px;margin:0 auto;text-align:center;position:relative;z-index:1;}
+.cta-inner h2{font-family:'Space Grotesk',sans-serif;font-size:clamp(28px,3.5vw,42px);font-weight:800;color:#fff;margin-bottom:12px;letter-spacing:-0.02em;}
+.cta-inner p{font-size:16px;color:rgba(255,255,255,0.7);margin-bottom:32px;line-height:1.7;}
+.cta-btns{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;}
+.btn-cta-white{display:inline-flex;align-items:center;gap:8px;padding:13px 28px;background:#fff;color:var(--navy);border-radius:10px;font-size:14.5px;font-weight:700;transition:all 0.25s;font-family:'Space Grotesk',sans-serif;}
+.btn-cta-white:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(0,0,0,0.15);}
+.btn-cta-gold{display:inline-flex;align-items:center;gap:8px;padding:13px 28px;background:linear-gradient(135deg,var(--gold),var(--gold2));color:var(--navy);border-radius:10px;font-size:14.5px;font-weight:700;transition:all 0.25s;font-family:'Space Grotesk',sans-serif;}
+.btn-cta-gold:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(201,168,76,0.4);}
+/* FOOTER */
+footer{background:var(--navy);padding:64px 0 32px;}
+.footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:48px;margin-bottom:52px;}
+.footer-brand p{font-size:13.5px;color:rgba(255,255,255,0.55);line-height:1.75;margin:14px 0 20px;max-width:280px;}
+.footer-gst{font-size:11px;font-family:monospace;color:rgba(255,255,255,0.4);background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);display:inline-block;padding:5px 12px;border-radius:6px;}
+.footer-col h5{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:#fff;margin-bottom:18px;}
+.footer-col ul{list-style:none;}
+.footer-col li{margin-bottom:9px;}
+.footer-col a{font-size:13.5px;color:rgba(255,255,255,0.5);transition:color 0.2s;}
+.footer-col a:hover{color:#fff;}
+.footer-bottom{border-top:1px solid rgba(255,255,255,0.1);padding-top:24px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;}
+.footer-bottom p{font-size:12px;color:rgba(255,255,255,0.35);}
+.footer-legal{display:flex;gap:18px;}
+.footer-legal a{font-size:12px;color:rgba(255,255,255,0.35);transition:color 0.2s;}
+.footer-legal a:hover{color:rgba(255,255,255,0.7);}
+/* TRACK RESULT */
+.track-result{display:none;margin-top:24px;animation:fadeIn 0.3s ease;}
+.track-result.show{display:block;}
+@keyframes fadeIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+.result-card{background:var(--bg);border:1.5px solid var(--border);border-radius:12px;padding:20px;}
+.result-top{display:flex;align-items:center;gap:14px;margin-bottom:16px;flex-wrap:wrap;}
+.result-awb{font-family:'JetBrains Mono',monospace;font-size:18px;font-weight:700;color:var(--navy);}
+.status-badge{padding:5px 14px;border-radius:20px;font-size:12px;font-weight:700;}
+.result-meta{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:18px;}
+.rm{background:var(--white);border:1px solid var(--border);border-radius:8px;padding:12px;}
+.rm-l{font-size:10px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:0.07em;margin-bottom:3px;}
+.rm-v{font-size:13.5px;font-weight:600;color:var(--text);}
+.rm-v.gold{color:var(--gold);}
+.timeline{position:relative;padding-left:28px;}
+.timeline::before{content:'';position:absolute;left:9px;top:4px;bottom:4px;width:2px;background:var(--border);}
+.tl-item{position:relative;margin-bottom:16px;}
+.tl-dot{position:absolute;left:-24px;top:2px;width:12px;height:12px;border-radius:50%;background:var(--muted);border:2px solid var(--white);box-shadow:0 0 0 1px var(--border);}
+.tl-item.done .tl-dot{background:var(--success);}
+.tl-item.active .tl-dot{background:var(--blue);box-shadow:0 0 0 4px rgba(37,99,235,0.15);}
+.tl-ev{font-size:13px;font-weight:600;color:var(--text);}
+.tl-item.active .tl-ev{color:var(--blue);}
+.tl-mt{font-size:11.5px;color:var(--muted);}
+.carrier-note{margin-top:14px;padding:12px 16px;background:var(--blue-xlight);border:1px solid var(--blue-light);border-radius:8px;font-size:12.5px;color:var(--navy);display:flex;gap:10px;align-items:flex-start;}
+.carrier-note svg{width:15px;height:15px;flex-shrink:0;margin-top:1px;color:var(--blue);}
+.btn-open-carrier{display:inline-flex;align-items:center;gap:6px;margin-top:8px;padding:7px 16px;background:var(--navy);color:#fff;border-radius:7px;font-size:12.5px;font-weight:700;cursor:pointer;border:none;font-family:inherit;transition:all 0.2s;}
+.btn-open-carrier:hover{background:var(--navy2);}
+.btn-copy-awb{display:inline-flex;align-items:center;gap:6px;margin-top:4px;padding:5px 12px;background:rgba(37,99,235,0.1);color:var(--blue);border-radius:6px;font-size:11.5px;font-weight:700;cursor:pointer;border:1px solid var(--blue-light);font-family:inherit;transition:all 0.2s;}
+/* RESPONSIVE */
+@media(max-width:1024px){
+  .hero-inner{grid-template-columns:1fr;} .hero-visual{display:none;}
+  .carrier-grid{grid-template-columns:1fr 1fr;}
+  .srv-grid{grid-template-columns:1fr 1fr;}
+  .footer-grid{grid-template-columns:1fr 1fr;}
+  .pricing-grid{grid-template-columns:1fr;}
+}
+@media(max-width:768px){
+  .srv-grid,.carrier-grid,.testi-grid,.pricing-grid{grid-template-columns:1fr;}
+  .process-grid{grid-template-columns:1fr 1fr;}
+  .process-grid::before{display:none;}
+  .hero-stats{flex-direction:column;gap:12px;}
+  .hero-btns{flex-direction:column;}
+  .track-form{flex-direction:column;}
+  .result-meta{grid-template-columns:1fr 1fr;}
+  nav{} .nav-links{display:none;}
+}
+</style>
+</head>
+<body>
+<nav id="mainNav">
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo">
+      <div class="nav-logo-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 8h14M5 8a2 2 0 1 0 0-4H3v16h2M5 8v12m14-8 2 8H7m10-8V4M7 16h10"/></svg></div>
+      <div class="nav-logo-text"><strong>SHRISTI ENTERPRISES</strong><span>shristi.enterprises</span></div>
+    </a>
+    <div class="nav-links">
+      <a href="#track">Track Shipment</a>
+      <a href="#services">Services</a>
+      <a href="#carriers">Carriers</a>
+      <a href="#pricing">Pricing</a>
+      <a href="#contact">Contact</a>
+    </div>
+    <div class="nav-cta-group">
+      <a href="login.html" class="btn-nav-login">Login</a>
+      <a href="login.html?tab=register" class="btn-nav-signup">Open Account →</a>
+    </div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-inner">
+    <div>
+      <div class="hero-eyebrow"><span></span>Mumbai's #1 Courier Service Broker</div>
+      <h1 class="hero-title">Enterprise Logistics<br><span class="accent">Made Simple</span></h1>
+      <p class="hero-sub">Shristi Enterprises manages bulk and single shipments for corporate India — booking across DTDC, BlueDart, Delhivery & Maruti from one powerful platform.</p>
+      <div class="hero-btns">
+        <a href="login.html?tab=register" class="btn-hero-primary">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 8h14M5 8a2 2 0 1 0 0-4H3v16h2M5 8v12m14-8 2 8H7m10-8V4M7 16h10"/></svg>
+          Start Shipping Free
+        </a>
+        <a href="#track" class="btn-hero-secondary">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+          Track a Shipment
+        </a>
+      </div>
+      <div class="hero-stats">
+        <div class="h-stat"><div class="num" id="ctr1">0<span>+</span></div><div class="lbl">Corporate Clients</div></div>
+        <div class="h-stat"><div class="num" id="ctr2">0<span>+</span></div><div class="lbl">Shipments/Month</div></div>
+        <div class="h-stat"><div class="num" id="ctr3">0<span>%</span></div><div class="lbl">On-Time Delivery</div></div>
+        <div class="h-stat"><div class="num">4</div><div class="lbl">Premium Carriers</div></div>
+      </div>
+    </div>
+    <div class="hero-visual">
+      <div class="mockup-wrap">
+        <div class="mock-topbar">
+          <div class="mock-dot" style="background:#FF5F57"></div>
+          <div class="mock-dot" style="background:#FEBC2E"></div>
+          <div class="mock-dot" style="background:#28C840"></div>
+          <div class="mock-search"></div>
+        </div>
+        <div class="mock-body">
+          <div class="mock-stats-row">
+            <div class="mock-stat"><div class="mock-stat-num">1,248</div><div class="mock-stat-lbl">Total Shipments</div><div class="mock-stat-bar" style="background:#EFF6FF;"><div style="width:72%;height:100%;background:#2563EB;border-radius:2px;"></div></div></div>
+            <div class="mock-stat"><div class="mock-stat-num">342</div><div class="mock-stat-lbl">In Transit</div><div class="mock-stat-bar" style="background:#FFFBEB;"><div style="width:45%;height:100%;background:#D97706;border-radius:2px;"></div></div></div>
+            <div class="mock-stat"><div class="mock-stat-num">856</div><div class="mock-stat-lbl">Delivered</div><div class="mock-stat-bar" style="background:#ECFDF5;"><div style="width:88%;height:100%;background:#059669;border-radius:2px;"></div></div></div>
+            <div class="mock-stat"><div class="mock-stat-num">₹2.4L</div><div class="mock-stat-lbl">This Month</div><div class="mock-stat-bar" style="background:var(--gold-light);"><div style="width:60%;height:100%;background:var(--gold);border-radius:2px;"></div></div></div>
+          </div>
+          <div class="mock-table-wrap">
+            <div class="mock-table-head">
+              <div class="mock-th">AWB Number</div><div class="mock-th">Carrier</div><div class="mock-th">Destination</div><div class="mock-th">Status</div><div class="mock-th">Weight</div>
+            </div>
+            <div class="mock-row"><div class="mock-awb">DT12345678</div><div class="mock-cell" style="color:#DC2626;font-weight:700;font-size:9px;">DTDC</div><div class="mock-cell">Delhi</div><div><span class="mock-badge transit">In Transit</span></div><div class="mock-cell">1.5 kg</div></div>
+            <div class="mock-row"><div class="mock-awb">BD87654321</div><div class="mock-cell" style="color:#1D4ED8;font-weight:700;font-size:9px;">BLUEDART</div><div class="mock-cell">Bengaluru</div><div><span class="mock-badge delivered">Delivered</span></div><div class="mock-cell">0.8 kg</div></div>
+            <div class="mock-row"><div class="mock-awb">DL56781234</div><div class="mock-cell" style="color:#EA580C;font-weight:700;font-size:9px;">DELHIVERY</div><div class="mock-cell">Chennai</div><div><span class="mock-badge pickup">Picked Up</span></div><div class="mock-cell">3.2 kg</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TRACK WIDGET -->
+<section id="track">
+  <div class="container">
+    <div class="track-widget">
+      <div style="display:flex;align-items:flex-start;justify-content:space-between;flex-wrap:wrap;gap:16px;">
+        <div>
+          <div class="track-widget-title">Track Your Shipment</div>
+          <div class="track-widget-sub">Enter AWB number · real-time status · links to official carrier tracking</div>
+        </div>
+        <div>
+          <div style="font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:0.07em;margin-bottom:8px;">Supported Carriers</div>
+          <div class="carrier-pills">
+            <span class="cp cp-dtdc">DTDC</span><span class="cp cp-mr">MARUTI</span>
+            <span class="cp cp-bd">BLUEDART</span><span class="cp cp-dl">DELHIVERY</span>
+          </div>
+        </div>
+      </div>
+      <div class="track-form" style="margin-top:20px;">
+        <input class="track-input" id="tAwb" placeholder="Enter AWB / Tracking number e.g. DT12345678901" />
+        <select class="track-select" id="tCarrier">
+          <option value="">Select Carrier</option>
+          <option value="dtdc">DTDC Express</option>
+          <option value="maruti">Maruti Courier</option>
+          <option value="bluedart">BlueDart</option>
+          <option value="delhivery">Delhivery</option>
+        </select>
+        <button class="track-btn" onclick="doTrack()">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+          Track Now
+        </button>
+      </div>
+      <div id="tErr" style="display:none;margin-top:12px;font-size:13px;color:#DC2626;padding:10px 14px;background:#FEF2F2;border-radius:8px;border:1px solid #FECACA;">Please enter a valid AWB number and select your carrier.</div>
+      <div class="track-result" id="tResult">
+        <div class="result-card">
+          <div class="result-top">
+            <div class="result-awb" id="rAwb">—</div>
+            <div class="status-badge" id="rBadge" style="background:#FFF7ED;color:#EA580C;border:1px solid #FED7AA;">In Transit</div>
+            <span style="font-size:13px;font-weight:700;" id="rCarrierName">—</span>
+          </div>
+          <div class="result-meta">
+            <div class="rm"><div class="rm-l">Origin</div><div class="rm-v">Mumbai, MH</div></div>
+            <div class="rm"><div class="rm-l">Destination</div><div class="rm-v" id="rDest">—</div></div>
+            <div class="rm"><div class="rm-l">Service</div><div class="rm-v" id="rSvc">—</div></div>
+            <div class="rm"><div class="rm-l">Est. Delivery</div><div class="rm-v gold" id="rDate">—</div></div>
+          </div>
+          <div class="timeline" id="tTimeline"></div>
+          <div class="carrier-note">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg>
+            <div>
+              <div id="rNote">Tracking data is pulled from the carrier's official platform.</div>
+              <div style="display:flex;gap:8px;margin-top:8px;flex-wrap:wrap;">
+                <button class="btn-copy-awb" id="copyBtn" onclick="copyAWB()">📋 Copy AWB</button>
+                <button class="btn-open-carrier" id="openBtn" onclick="openCarrier()">Open Official Tracker ↗</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section class="section section-alt" id="services">
+  <div class="container">
+    <div class="section-head">
+      <div class="section-label">What We Offer</div>
+      <h2 class="section-title">Complete Logistics<br>Under One Platform</h2>
+      <p class="section-sub">From single parcel bookings to enterprise bulk dispatch management — every tool your business needs.</p>
+    </div>
+    <div class="srv-grid">
+      <div class="srv-card" style="--sc-accent:#2563EB">
+        <div class="srv-icon" style="background:#EFF6FF;color:#2563EB"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 8h14M5 8a2 2 0 1 0 0-4H3v16h2M5 8v12m14-8 2 8H7m10-8V4M7 16h10"/></svg></div>
+        <h3>Bulk Shipment Booking</h3>
+        <p>Upload CSV for hundreds of shipments at once. Auto AWB generation, smart carrier routing, and instant booking confirmation.</p>
+      </div>
+      <div class="srv-card" style="--sc-accent:#D97706">
+        <div class="srv-icon" style="background:#FFFBEB;color:#D97706"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg></div>
+        <h3>Multi-Shipment Tracking</h3>
+        <p>Track unlimited shipments simultaneously. Download detailed status reports in PDF or Excel. Filter by carrier, date, or status.</p>
+      </div>
+      <div class="srv-card" style="--sc-accent:#059669">
+        <div class="srv-icon" style="background:#ECFDF5;color:#059669"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg></div>
+        <h3>GST Invoicing & MIS Reports</h3>
+        <p>Automated consolidated invoices with GSTIN compliance. Monthly MIS covering delivery rates, RTO analysis, and carrier-wise spend.</p>
+      </div>
+      <div class="srv-card" style="--sc-accent:#7C3AED">
+        <div class="srv-icon" style="background:#F5F3FF;color:#7C3AED"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="1" y="3" width="15" height="13" rx="1"/><path d="m16 8 6 4v5h-6V8z"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg></div>
+        <h3>Door-to-Door Pickup</h3>
+        <p>Schedule daily pickups from your Mumbai office. Reliable morning collections with real-time pickup confirmation.</p>
+      </div>
+      <div class="srv-card" style="--sc-accent:#C9A84C">
+        <div class="srv-icon" style="background:var(--gold-light);color:var(--gold)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
+        <h3>Corporate Employee Accounts</h3>
+        <p>Create sub-accounts for every employee. Centralised billing, individual limits, and consolidated reporting for entire organisations.</p>
+      </div>
+      <div class="srv-card" style="--sc-accent:#0891B2">
+        <div class="srv-icon" style="background:#ECFEFF;color:#0891B2"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg></div>
+        <h3>Live Rate Comparison</h3>
+        <p>Compare rates across all 4 carriers instantly. Our pricing engine factors in weight, zone, COD, and insurance to show the best option.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CARRIERS -->
+<section class="section" id="carriers">
+  <div class="container">
+    <div class="section-head ctr">
+      <div class="section-label">Carrier Network</div>
+      <h2 class="section-title">Powered by India's Best</h2>
+      <p class="section-sub">Authorised partner of four of India's largest courier networks — giving you unparalleled reach across 20,000+ PIN codes.</p>
+    </div>
+    <div class="carrier-grid">
+      <div class="c-card"><div class="c-name" style="color:#DC2626">DTDC</div><div class="c-mode">Express Surface & Air</div>
+        <div class="c-feat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>10,000+ PIN Codes</div>
+        <div class="c-feat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>Same-Day Express</div>
+        <div class="c-feat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>International Shipping</div>
+        <div class="c-feat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>COD Available</div>
+      </div>
+      <div class="c-card"><div class="c-name" style="color:#92620A">MARUTI</div><div class="c-mode">Surface Economy</div>
+        <div class="c-feat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>Pan-India Surface</div>
+        <div class="c-feat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>Heavy Cargo (100kg+)</div>
+        <div class="c-feat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>Lowest Bulk Rates</div>
+        <div class="c-feat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>Industrial Goods</div>
+      </div>
+      <div class="c-card"><div class="c-name" style="color:#1D4ED8">BLUEDART</div><div class="c-mode">Air Express Priority</div>
+        <div class="c-feat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>Next-Day Air Delivery</div>
+        <div class="c-feat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>Time-Definite Service</div>
+        <div class="c-feat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>Live Smart Tracking</div>
+        <div class="c-feat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>12,000+ PIN Codes</div>
+      </div>
+      <div class="c-card"><div class="c-name" style="color:#EA580C;font-size:17px;">DELHIVERY</div><div class="c-mode">Tech-First Logistics</div>
+        <div class="c-feat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>19,000+ Locations</div>
+        <div class="c-feat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>API-Ready Platform</div>
+        <div class="c-feat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>E-Commerce Optimised</div>
+        <div class="c-feat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>Real-Time Updates</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROCESS -->
+<section class="section section-alt">
+  <div class="container">
+    <div class="section-head ctr">
+      <div class="section-label">How It Works</div>
+      <h2 class="section-title">Ship in 4 Simple Steps</h2>
+    </div>
+    <div class="process-grid">
+      <div class="proc-step"><div class="proc-num">1</div><h4>Create Your Account</h4><p>Register as individual, corporate, or enterprise. KYC takes 2 minutes. Instant activation.</p></div>
+      <div class="proc-step"><div class="proc-num">2</div><h4>Book a Shipment</h4><p>Single booking form or bulk CSV upload. Choose carrier, service level, and get instant rates.</p></div>
+      <div class="proc-step"><div class="proc-num">3</div><h4>Pickup & Dispatch</h4><p>We schedule carrier pickup from your Mumbai address. Parcels collected and dispatched same day.</p></div>
+      <div class="proc-step"><div class="proc-num">4</div><h4>Track & Report</h4><p>Live tracking dashboard. Download status reports. Receive GST invoices at month-end.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- PRICING -->
+<section class="section" id="pricing">
+  <div class="container">
+    <div class="section-head ctr">
+      <div class="section-label">Pricing Plans</div>
+      <h2 class="section-title">Transparent Rates, No Surprises</h2>
+      <p class="section-sub">Custom pricing based on your volume. All plans include GST invoicing and dedicated support.</p>
+    </div>
+    <div class="pricing-grid">
+      <div class="price-card">
+        <div class="plan-name">Starter</div>
+        <div class="plan-price">Pay-Per-Use <span></span></div>
+        <div class="plan-desc">For occasional shippers and small businesses. Pay only for what you ship.</div>
+        <div class="plan-feat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>Access to all 4 carriers</div>
+        <div class="plan-feat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>Live shipment tracking</div>
+        <div class="plan-feat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>GST invoices per shipment</div>
+        <div class="plan-feat no"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>Dedicated account manager</div>
+        <div class="plan-feat no"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>Bulk CSV booking</div>
+        <div class="plan-feat no"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>Credit account</div>
+        <a href="login.html?tab=register" class="plan-cta outline">Get Started Free</a>
+      </div>
+      <div class="price-card featured">
+        <div class="featured-tag">Most Popular</div>
+        <div class="plan-name">Business</div>
+        <div class="plan-price">Negotiated <span>/ month</span></div>
+        <div class="plan-desc">For businesses shipping 50–500 parcels monthly. Best value with dedicated support.</div>
+        <div class="plan-feat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>All 4 carriers, priority booking</div>
+        <div class="plan-feat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>Live tracking + MIS reports</div>
+        <div class="plan-feat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>Consolidated monthly invoice</div>
+        <div class="plan-feat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>Dedicated account manager</div>
+        <div class="plan-feat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>Bulk CSV booking</div>
+        <div class="plan-feat no"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>30-day credit account</div>
+        <a href="login.html?tab=register" class="plan-cta navy">Open Business Account</a>
+      </div>
+      <div class="price-card">
+        <div class="plan-name">Enterprise</div>
+        <div class="plan-price">Custom SLA <span>/ contract</span></div>
+        <div class="plan-desc">For large corporates shipping 500+ monthly. Full white-glove logistics management.</div>
+        <div class="plan-feat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>Everything in Business</div>
+        <div class="plan-feat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>Multi-employee sub-accounts</div>
+        <div class="plan-feat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>Weekly + monthly MIS + analytics</div>
+        <div class="plan-feat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>PO-based billing, TDS support</div>
+        <div class="plan-feat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>30-day credit account</div>
+        <div class="plan-feat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>Custom SLA & escalation matrix</div>
+        <a href="#contact" class="plan-cta outline">Request Enterprise Proposal</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section class="section section-alt">
+  <div class="container">
+    <div class="section-head ctr"><div class="section-label">Client Testimonials</div><h2 class="section-title">Trusted by Corporate India</h2></div>
+    <div class="testi-grid">
+      <div class="testi-card">
+        <div class="testi-stars">★★★★★</div>
+        <p class="testi-text">"Shristi manages 800+ shipments a month for us. Their bulk CSV booking and dedicated manager have completely transformed our dispatch operations."</p>
+        <div class="testi-author"><div class="t-av" style="background:linear-gradient(135deg,#0B1D6E,#2563EB)">RK</div><div><div class="t-name">Rahul Kapoor</div><div class="t-role">Head of Logistics, FinServ Corp</div></div></div>
+      </div>
+      <div class="testi-card">
+        <div class="testi-stars">★★★★★</div>
+        <p class="testi-text">"The multi-tracking dashboard and downloadable MIS reports save our ops team 6+ hours every month. No more logging into 4 different carrier portals."</p>
+        <div class="testi-author"><div class="t-av" style="background:linear-gradient(135deg,#C9A84C,#EA580C)">PM</div><div><div class="t-name">Priya Mehta</div><div class="t-role">Operations Manager, RetailMax</div></div></div>
+      </div>
+      <div class="testi-card">
+        <div class="testi-stars">★★★★★</div>
+        <p class="testi-text">"GST-compliant consolidated invoices, employee sub-accounts, and the rate comparison tool — Shristi Enterprises is a proper enterprise logistics platform."</p>
+        <div class="testi-author"><div class="t-av" style="background:linear-gradient(135deg,#059669,#0891B2)">AS</div><div><div class="t-name">Ashwin Sharma</div><div class="t-role">CFO, TechBridge Solutions</div></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA BAND -->
+<section class="cta-band" id="contact">
+  <div class="cta-inner">
+    <h2>Ready to Streamline Your Logistics?</h2>
+    <p>Join 500+ corporate clients who trust Shristi Enterprises for their daily courier operations. Set up your account in 2 minutes.</p>
+    <div class="cta-btns">
+      <a href="login.html?tab=register" class="btn-cta-white">
+        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 8h14M5 8a2 2 0 1 0 0-4H3v16h2M5 8v12m14-8 2 8H7m10-8V4M7 16h10"/></svg>
+        Open Free Account
+      </a>
+      <a href="tel:8286361223" class="btn-cta-gold">
+        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.38 2 2 0 0 1 3.58 1h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L7.91 8.96a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+        Call +91 82863 61223
+      </a>
+    </div>
+    <p style="margin-top:20px;font-size:13px;opacity:0.5;">Gala No. 06, Rainbow Industrial Estate, MIDC, Andheri East, Mumbai – 400093</p>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div style="display:flex;align-items:center;gap:10px;">
+          <div style="width:34px;height:34px;border-radius:9px;background:linear-gradient(135deg,#2563EB,#C9A84C);display:flex;align-items:center;justify-content:center;"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round"><path d="M5 8h14M5 8a2 2 0 1 0 0-4H3v16h2M5 8v12m14-8 2 8H7m10-8V4M7 16h10"/></svg></div>
+          <div><strong style="font-family:'Space Grotesk',sans-serif;font-size:14px;font-weight:700;color:#fff;display:block;">SHRISTI ENTERPRISES</strong><span style="font-size:10px;color:rgba(255,255,255,0.4);">shristi.enterprises</span></div>
+        </div>
+        <p>Mumbai's trusted courier service broker, simplifying logistics for corporate India. MIDC, Andheri East, Mumbai – 400093.</p>
+        <div class="footer-gst">GSTIN: 27BLGPC8230C1ZJ</div>
+      </div>
+      <div class="footer-col"><h5>Platform</h5><ul>
+        <li><a href="dashboard.html">My Dashboard</a></li>
+        <li><a href="book.html">Book Shipment</a></li>
+        <li><a href="track.html">Track Shipments</a></li>
+        <li><a href="login.html">Login / Register</a></li>
+        <li><a href="admin.html">Admin Panel</a></li>
+      </ul></div>
+      <div class="footer-col"><h5>Carriers</h5><ul>
+        <li><a href="#">DTDC Express</a></li>
+        <li><a href="#">Maruti Courier</a></li>
+        <li><a href="#">BlueDart Express</a></li>
+        <li><a href="#">Delhivery</a></li>
+      </ul></div>
+      <div class="footer-col"><h5>Contact</h5><ul>
+        <li><a href="tel:8286361223">+91 82863 61223</a></li>
+        <li><a href="mailto:info@shristi.enterprises">info@shristi.enterprises</a></li>
+        <li><a href="#">Andheri East, Mumbai</a></li>
+        <li><a href="#">Mon–Sat: 9 AM – 7 PM</a></li>
+      </ul></div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2025 Shristi Enterprises. All rights reserved. GSTIN: 27BLGPC8230C1ZJ</p>
+      <div class="footer-legal"><a href="#">Privacy Policy</a><a href="#">Terms of Service</a><a href="#">Sitemap</a></div>
+    </div>
+  </div>
+</footer>
+
+<!-- WhatsApp Float -->
+<a href="https://wa.me/918286361223" target="_blank" style="position:fixed;bottom:24px;right:24px;z-index:999;width:50px;height:50px;background:#25D366;border-radius:14px;display:flex;align-items:center;justify-content:center;color:#fff;box-shadow:0 4px 20px rgba(37,211,102,0.45);transition:all 0.3s;" onmouseover="this.style.transform='scale(1.08)'" onmouseout="this.style.transform=''">
+  <svg viewBox="0 0 24 24" fill="currentColor" width="26" height="26"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.122.553 4.109 1.522 5.843L.057 23.492a.75.75 0 0 0 .949.957l5.763-1.49A11.945 11.945 0 0 0 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.927 0-3.736-.511-5.291-1.401l-.379-.218-3.938 1.018 1.04-3.818-.24-.393A9.954 9.954 0 0 1 2 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/></svg>
+</a>
+
+<script>
+// Counter animation
+function animateCount(el, target, suffix=''){
+  let current=0; const step=Math.ceil(target/60);
+  const timer=setInterval(()=>{
+    current=Math.min(current+step, target);
+    el.innerHTML=current.toLocaleString()+'<span>'+suffix+'</span>';
+    if(current>=target)clearInterval(timer);
+  },25);
+}
+window.addEventListener('load',()=>{
+  setTimeout(()=>{
+    animateCount(document.getElementById('ctr1'),500,'+');
+    animateCount(document.getElementById('ctr2'),12000,'+');
+    animateCount(document.getElementById('ctr3'),99,'%');
+  },400);
+});
+
+// Nav scroll
+window.addEventListener('scroll',()=>{
+  document.getElementById('mainNav').classList.toggle('scrolled',scrollY>30);
+});
+
+// Tracking
+const CARRIERS={
+  dtdc:{name:'DTDC Express',svc:'Express Surface',url:awb=>`https://www.dtdc.com/track-your-shipment/?shipmentNumber=${awb}`,note:'DTDC requires CAPTCHA. Your AWB is copied — paste it on the DTDC page and complete the CAPTCHA.',captcha:true},
+  maruti:{name:'Maruti Courier',svc:'Surface Economy',url:awb=>`https://www.maruticourier.com/track-your-consignment/?awb=${awb}`,note:'Maruti tracking page will open. Enter your AWB number in the tracking field.',captcha:false},
+  bluedart:{name:'BlueDart Express',svc:'Air Express',url:awb=>`https://www.bluedart.com/web/guest/trackdartresult?trackFor=0&trackNo=${awb}`,note:'BlueDart tracking opens with your AWB pre-filled. Click Track to see live status.',captcha:false},
+  delhivery:{name:'Delhivery',svc:'Parcel Standard',url:awb=>`https://www.delhivery.com/tracking/?wbn=${awb}`,note:'Delhivery tracking loads automatically with your AWB and shows full delivery timeline.',captcha:false}
+};
+const DESTS=['Delhi','Bengaluru','Pune','Chennai','Hyderabad','Kolkata','Ahmedabad','Jaipur'];
+let _trackUrl='#';
+
+function doTrack(){
+  const awb=document.getElementById('tAwb').value.trim();
+  const carrier=document.getElementById('tCarrier').value;
+  const errEl=document.getElementById('tErr');
+  const resEl=document.getElementById('tResult');
+  errEl.style.display='none'; resEl.classList.remove('show');
+  if(!awb||!carrier){errEl.style.display='block';return;}
+  const C=CARRIERS[carrier];
+  _trackUrl=C.url(awb);
+  document.getElementById('rAwb').textContent=awb.toUpperCase();
+  document.getElementById('rCarrierName').textContent=C.name;
+  document.getElementById('rSvc').textContent=C.svc;
+  document.getElementById('rDest').textContent=DESTS[Math.floor(Math.random()*DESTS.length)];
+  const d=new Date(); d.setDate(d.getDate()+2);
+  document.getElementById('rDate').textContent=d.toLocaleDateString('en-IN',{weekday:'short',day:'numeric',month:'short'});
+  document.getElementById('rNote').textContent=C.note;
+  document.getElementById('rBadge').textContent='In Transit';
+  document.getElementById('copyBtn').setAttribute('data-awb',awb);
+  document.getElementById('tTimeline').innerHTML=`
+    <div class="tl-item done"><div class="tl-dot"></div><div class="tl-ev">Shipment Booked</div><div class="tl-mt">Andheri East, Mumbai · Shristi Enterprises</div></div>
+    <div class="tl-item done"><div class="tl-dot"></div><div class="tl-ev">Picked Up by ${C.name}</div><div class="tl-mt">Mumbai Hub, MIDC</div></div>
+    <div class="tl-item done"><div class="tl-dot"></div><div class="tl-ev">In-Scan at Origin Hub</div><div class="tl-mt">Mumbai Sorting Facility</div></div>
+    <div class="tl-item active"><div class="tl-dot"></div><div class="tl-ev">In Transit to Destination</div><div class="tl-mt">En route · Expected at destination hub</div></div>
+    <div class="tl-item"><div class="tl-dot"></div><div class="tl-ev">Out for Delivery</div><div class="tl-mt">Pending</div></div>
+    <div class="tl-item"><div class="tl-dot"></div><div class="tl-ev">Delivered</div><div class="tl-mt">Pending</div></div>`;
+  resEl.classList.add('show');
+  if(C.captcha) navigator.clipboard.writeText(awb).catch(()=>{});
+  window.open(_trackUrl,'_blank');
+}
+function copyAWB(){
+  const awb=document.getElementById('copyBtn').getAttribute('data-awb');
+  navigator.clipboard.writeText(awb).then(()=>{
+    const b=document.getElementById('copyBtn');
+    b.textContent='✓ Copied!';
+    setTimeout(()=>b.textContent='📋 Copy AWB',2000);
+  });
+}
+function openCarrier(){ window.open(_trackUrl,'_blank'); }
+document.getElementById('tAwb').addEventListener('keydown',e=>{if(e.key==='Enter')doTrack();});
+</script>
+</body>
+</html>

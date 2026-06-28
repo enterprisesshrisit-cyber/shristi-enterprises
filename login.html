@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Login / Register – Shristi Enterprises</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+<script src="app.js"></script>
+<style>
+:root{--navy:#0B1D6E;--navy2:#1E3A8A;--blue:#2563EB;--blue2:#3B82F6;--blue-light:#DBEAFE;--blue-xlight:#EFF6FF;--gold:#C9A84C;--gold2:#E2B354;--gold-light:#FEF9EE;--text:#0F172A;--text2:#334155;--muted:#64748B;--border:#E2E8F0;--white:#FFFFFF;--bg:#F4F7FF;--success:#059669;--danger:#DC2626;--r:10px;}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'Inter',sans-serif;background:linear-gradient(135deg,#F0F4FF 0%,#FFFFFF 50%,#F8FAFF 100%);min-height:100vh;display:flex;align-items:center;justify-content:center;padding:20px;-webkit-font-smoothing:antialiased;}
+.auth-wrap{display:grid;grid-template-columns:1fr 1fr;min-height:100vh;width:100%;max-width:1100px;margin:auto;background:var(--white);border-radius:24px;box-shadow:0 8px 16px rgba(0,0,0,0.06),0 32px 80px rgba(11,29,110,0.14);overflow:hidden;}
+/* LEFT PANEL */
+.auth-left{background:linear-gradient(160deg,var(--navy) 0%,var(--navy2) 60%,#1E40AF 100%);padding:48px 44px;display:flex;flex-direction:column;justify-content:space-between;position:relative;overflow:hidden;}
+.auth-left::before{content:'';position:absolute;top:-80px;right:-80px;width:320px;height:320px;border-radius:50%;background:rgba(255,255,255,0.04);}
+.auth-left::after{content:'';position:absolute;bottom:-60px;left:-60px;width:240px;height:240px;border-radius:50%;background:rgba(201,168,76,0.08);}
+.al-logo{display:flex;align-items:center;gap:12px;text-decoration:none;margin-bottom:48px;position:relative;z-index:1;}
+.al-logo-icon{width:40px;height:40px;border-radius:11px;background:linear-gradient(135deg,var(--blue2),var(--gold));display:flex;align-items:center;justify-content:center;box-shadow:0 4px 16px rgba(37,99,235,0.4);}
+.al-logo-icon svg{width:21px;height:21px;color:#fff;}
+.al-logo-text strong{display:block;font-family:'Space Grotesk',sans-serif;font-size:14px;font-weight:700;color:#fff;}
+.al-logo-text span{font-size:10px;color:rgba(255,255,255,0.45);text-transform:uppercase;letter-spacing:0.1em;}
+.al-content{position:relative;z-index:1;}
+.al-tag{display:inline-flex;align-items:center;gap:6px;background:rgba(201,168,76,0.18);border:1px solid rgba(201,168,76,0.3);border-radius:20px;padding:4px 12px;font-size:11px;font-weight:700;color:var(--gold);text-transform:uppercase;letter-spacing:0.08em;margin-bottom:20px;}
+.al-title{font-family:'Space Grotesk',sans-serif;font-size:32px;font-weight:800;color:#fff;line-height:1.15;letter-spacing:-0.02em;margin-bottom:14px;}
+.al-title span{color:var(--gold);}
+.al-sub{font-size:14.5px;color:rgba(255,255,255,0.6);line-height:1.75;margin-bottom:32px;}
+.al-features{display:flex;flex-direction:column;gap:12px;}
+.al-feat{display:flex;align-items:center;gap:12px;font-size:13.5px;color:rgba(255,255,255,0.75);}
+.al-feat-icon{width:32px;height:32px;border-radius:8px;background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.12);display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.al-feat-icon svg{width:15px;height:15px;color:var(--gold);}
+.al-bottom{position:relative;z-index:1;}
+.al-info{background:rgba(255,255,255,0.07);border:1px solid rgba(255,255,255,0.12);border-radius:12px;padding:16px 18px;}
+.al-info p{font-size:12.5px;color:rgba(255,255,255,0.55);line-height:1.6;}
+.al-info strong{color:rgba(255,255,255,0.85);display:block;margin-bottom:4px;font-family:'Space Grotesk',sans-serif;font-size:13px;}
+/* RIGHT PANEL */
+.auth-right{padding:48px 44px;display:flex;flex-direction:column;overflow-y:auto;}
+.auth-right-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:32px;}
+.auth-right-header h2{font-family:'Space Grotesk',sans-serif;font-size:22px;font-weight:800;color:var(--text);}
+.back-home{font-size:13px;color:var(--muted);display:flex;align-items:center;gap:5px;text-decoration:none;transition:color 0.2s;}
+.back-home:hover{color:var(--navy);}
+.back-home svg{width:14px;height:14px;}
+/* TABS */
+.auth-tabs{display:flex;background:var(--bg);border-radius:10px;padding:4px;margin-bottom:28px;gap:4px;}
+.auth-tab{flex:1;text-align:center;padding:9px;border-radius:7px;font-size:13.5px;font-weight:600;cursor:pointer;color:var(--muted);transition:all 0.2s;border:none;background:none;}
+.auth-tab.active{background:var(--white);color:var(--navy);box-shadow:0 1px 4px rgba(11,29,110,0.12);}
+/* FORM */
+.auth-form{display:none;animation:fadeIn 0.25s ease;}
+.auth-form.active{display:block;}
+@keyframes fadeIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
+.fg{display:flex;flex-direction:column;gap:5px;margin-bottom:14px;}
+.fg label{font-size:12.5px;font-weight:600;color:var(--text2);}
+.fg label .req{color:var(--danger);margin-left:2px;}
+.fi{background:var(--white);border:1.5px solid var(--border);border-radius:var(--r);padding:10px 13px;font-size:14px;color:var(--text);outline:none;transition:all 0.2s;width:100%;font-family:'Inter',sans-serif;}
+.fi:focus{border-color:var(--blue);box-shadow:0 0 0 3px rgba(37,99,235,0.1);}
+.fi::placeholder{color:#CBD5E1;}
+.fi.err{border-color:var(--danger);}
+.fi-sel{appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='7'%3E%3Cpath d='M1 1l4 4 4-4' stroke='%2364748B' stroke-width='1.5' fill='none'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 13px center;padding-right:36px;cursor:pointer;}
+.fi-sel option{background:var(--white);}
+.row-2{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+.role-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-top:4px;}
+.role-opt{border:1.5px solid var(--border);border-radius:8px;padding:10px;cursor:pointer;transition:all 0.2s;text-align:center;}
+.role-opt:hover{border-color:var(--blue);background:var(--blue-xlight);}
+.role-opt.selected{border-color:var(--navy);background:var(--blue-xlight);}
+.role-opt input{display:none;}
+.role-opt-icon{font-size:20px;margin-bottom:4px;}
+.role-opt-label{font-size:12px;font-weight:600;color:var(--text2);}
+.role-opt.selected .role-opt-label{color:var(--navy);}
+.pwd-wrap{position:relative;}
+.pwd-wrap .fi{padding-right:42px;}
+.pwd-toggle{position:absolute;right:13px;top:50%;transform:translateY(-50%);background:none;border:none;cursor:pointer;color:var(--muted);padding:0;display:flex;}
+.pwd-toggle:hover{color:var(--text);}
+.pwd-toggle svg{width:16px;height:16px;}
+.pwd-strength{height:4px;border-radius:2px;margin-top:5px;background:var(--border);overflow:hidden;}
+.pwd-strength-bar{height:100%;border-radius:2px;transition:all 0.3s;width:0%;}
+.pwd-hint{font-size:11px;margin-top:3px;}
+.terms{display:flex;align-items:flex-start;gap:10px;margin:14px 0;font-size:12.5px;color:var(--muted);}
+.terms input{margin-top:2px;flex-shrink:0;accent-color:var(--navy);}
+.terms a{color:var(--blue);}
+.submit-btn{width:100%;padding:13px;background:var(--navy);color:#fff;border:none;border-radius:10px;font-size:14.5px;font-weight:700;cursor:pointer;transition:all 0.25s;font-family:'Space Grotesk',sans-serif;margin-top:4px;box-shadow:0 4px 16px rgba(11,29,110,0.25);}
+.submit-btn:hover{background:var(--navy2);transform:translateY(-1px);}
+.submit-btn:disabled{opacity:0.6;cursor:not-allowed;transform:none;}
+.auth-divider{display:flex;align-items:center;gap:12px;margin:18px 0;color:var(--muted);font-size:12.5px;}
+.auth-divider::before,.auth-divider::after{content:'';flex:1;height:1px;background:var(--border);}
+.quick-fill{display:flex;flex-direction:column;gap:6px;background:var(--bg);border:1px solid var(--border);border-radius:10px;padding:14px 16px;}
+.quick-fill p{font-size:11.5px;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:0.07em;margin-bottom:6px;}
+.quick-btns{display:flex;gap:8px;flex-wrap:wrap;}
+.qb{padding:6px 13px;border-radius:7px;border:1.5px solid var(--border);background:var(--white);font-size:12px;font-weight:600;cursor:pointer;color:var(--text2);transition:all 0.2s;font-family:'Inter',sans-serif;}
+.qb:hover{border-color:var(--navy);color:var(--navy);background:var(--bg);}
+.auth-error{display:none;padding:10px 14px;background:#FEF2F2;border:1px solid #FECACA;border-radius:8px;color:var(--danger);font-size:13px;margin-bottom:14px;}
+.auth-error.show{display:flex;align-items:center;gap:8px;}
+.auth-error svg{width:15px;height:15px;flex-shrink:0;}
+.auth-success{display:none;padding:12px 16px;background:#ECFDF5;border:1px solid #A7F3D0;border-radius:8px;color:var(--success);font-size:13px;margin-bottom:14px;}
+.auth-success.show{display:flex;align-items:center;gap:8px;animation:fadeIn 0.3s ease;}
+.auth-footer{margin-top:auto;padding-top:24px;border-top:1px solid var(--border);font-size:12px;color:var(--muted);text-align:center;}
+.auth-footer a{color:var(--blue);}
+.spinner{display:inline-block;width:16px;height:16px;border:2px solid rgba(255,255,255,0.35);border-top-color:#fff;border-radius:50%;animation:spin 0.7s linear infinite;}
+@keyframes spin{to{transform:rotate(360deg)}}
+@media(max-width:900px){
+  .auth-wrap{grid-template-columns:1fr;max-width:480px;}
+  .auth-left{display:none;}
+}
+</style>
+</head>
+<body>
+<div class="auth-wrap">
+  <!-- LEFT PANEL -->
+  <div class="auth-left">
+    <a href="index.html" class="al-logo">
+      <div class="al-logo-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 8h14M5 8a2 2 0 1 0 0-4H3v16h2M5 8v12m14-8 2 8H7m10-8V4M7 16h10"/></svg></div>
+      <div class="al-logo-text"><strong>SHRISTI ENTERPRISES</strong><span>shristi.enterprises</span></div>
+    </a>
+    <div class="al-content">
+      <div class="al-tag">Mumbai's Courier Broker</div>
+      <h2 class="al-title">Your Complete<br><span>Logistics Platform</span></h2>
+      <p class="al-sub">Book shipments, track parcels, manage bulk orders, and get GST invoices — all in one professional dashboard.</p>
+      <div class="al-features">
+        <div class="al-feat"><div class="al-feat-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 8h14M5 8a2 2 0 1 0 0-4H3v16h2M5 8v12m14-8 2 8H7m10-8V4M7 16h10"/></svg></div>Single & bulk shipment booking with CSV upload</div>
+        <div class="al-feat"><div class="al-feat-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg></div>Multi-shipment tracking with downloadable reports</div>
+        <div class="al-feat"><div class="al-feat-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg></div>Corporate employee accounts & centralised billing</div>
+        <div class="al-feat"><div class="al-feat-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg></div>Live rate comparison across DTDC, BlueDart, Delhivery & Maruti</div>
+      </div>
+    </div>
+    <div class="al-bottom">
+      <div class="al-info">
+        <strong>📍 Gala No. 06, Rainbow Industrial Estate</strong>
+        <p>MIDC, Andheri East, Mumbai – 400093 · +91 82863 61223 · GSTIN: 27BLGPC8230C1ZJ</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- RIGHT PANEL -->
+  <div class="auth-right">
+    <div class="auth-right-header">
+      <h2 id="panelTitle">Welcome Back</h2>
+      <a href="index.html" class="back-home"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5m7-7-7 7 7 7"/></svg>Back to Home</a>
+    </div>
+
+    <div class="auth-tabs">
+      <button class="auth-tab active" onclick="switchTab('login')">Login to Account</button>
+      <button class="auth-tab" onclick="switchTab('register')">Create Account</button>
+    </div>
+
+    <div id="authErr" class="auth-error"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg><span id="authErrMsg"></span></div>
+    <div id="authSucc" class="auth-success"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg><span id="authSuccMsg"></span></div>
+
+    <!-- LOGIN FORM -->
+    <div class="auth-form active" id="loginForm">
+      <div class="fg">
+        <label>Email Address <span class="req">*</span></label>
+        <input class="fi" id="lEmail" type="email" placeholder="you@company.com" autocomplete="email"/>
+      </div>
+      <div class="fg">
+        <label>Password <span class="req">*</span></label>
+        <div class="pwd-wrap">
+          <input class="fi" id="lPass" type="password" placeholder="Enter your password" autocomplete="current-password"/>
+          <button class="pwd-toggle" type="button" onclick="togglePwd('lPass',this)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg></button>
+        </div>
+      </div>
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:18px;">
+        <label style="display:flex;align-items:center;gap:7px;font-size:13px;color:var(--muted);cursor:pointer;"><input type="checkbox" style="accent-color:var(--navy);"> Remember me</label>
+        <a href="#" style="font-size:13px;color:var(--blue);">Forgot password?</a>
+      </div>
+      <button class="submit-btn" id="loginBtn" onclick="doLogin()">Login to Dashboard</button>
+      <div class="auth-divider">Demo Accounts</div>
+      <div class="quick-fill">
+        <p>Quick Fill for Testing</p>
+        <div class="quick-btns">
+          <button class="qb" onclick="fillLogin('admin@shristi.enterprises','Admin@2025','admin')">👑 Admin</button>
+          <button class="qb" onclick="fillLogin('corp@finserv.com','Corp@2025','corporate')">🏢 Corporate</button>
+          <button class="qb" onclick="fillLogin('priya@example.com','Cust@2025','customer')">👤 Customer</button>
+          <button class="qb" onclick="fillLogin('employee@finserv.com','Emp@2025','employee')">🧑‍💼 Employee</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- REGISTER FORM -->
+    <div class="auth-form" id="registerForm">
+      <div class="fg">
+        <label>Account Type <span class="req">*</span></label>
+        <div class="role-grid">
+          <div class="role-opt selected" onclick="selectRole('customer',this)"><input type="radio" name="role" value="customer" checked><div class="role-opt-icon">👤</div><div class="role-opt-label">Individual</div></div>
+          <div class="role-opt" onclick="selectRole('corporate',this)"><input type="radio" name="role" value="corporate"><div class="role-opt-icon">🏢</div><div class="role-opt-label">Corporate</div></div>
+          <div class="role-opt" onclick="selectRole('customer',this,'corp')"><input type="radio" name="role" value="customer"><div class="role-opt-icon">🧑‍💼</div><div class="role-opt-label">Employee</div></div>
+        </div>
+      </div>
+      <div class="row-2">
+        <div class="fg" style="margin-bottom:0"><label>Full Name <span class="req">*</span></label><input class="fi" id="rName" type="text" placeholder="Rahul Sharma"/></div>
+        <div class="fg" style="margin-bottom:0"><label>Phone / WhatsApp <span class="req">*</span></label><input class="fi" id="rPhone" type="tel" placeholder="+91 98765 43210"/></div>
+      </div>
+      <div class="fg" style="margin-top:14px"><label>Email Address <span class="req">*</span></label><input class="fi" id="rEmail" type="email" placeholder="you@company.com"/></div>
+      <div id="corpFields" style="display:none">
+        <div class="row-2">
+          <div class="fg" style="margin-bottom:0"><label>Company Name</label><input class="fi" id="rCompany" type="text" placeholder="ABC Pvt Ltd"/></div>
+          <div class="fg" style="margin-bottom:0"><label>GST Number</label><input class="fi" id="rGst" type="text" placeholder="27AAACF1234M1ZA"/></div>
+        </div>
+        <div class="fg" style="margin-top:14px"><label>Account Type</label>
+          <select class="fi fi-sel" id="rAccType">
+            <option value="prepaid">Prepaid (Pay per shipment)</option>
+            <option value="credit">Credit Account (Monthly billing)</option>
+          </select>
+        </div>
+      </div>
+      <div class="row-2" style="margin-top:14px">
+        <div class="fg" style="margin-bottom:0"><label>Password <span class="req">*</span></label>
+          <div class="pwd-wrap"><input class="fi" id="rPass" type="password" placeholder="Min 8 characters" oninput="checkPwd(this)"/><button class="pwd-toggle" type="button" onclick="togglePwd('rPass',this)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg></button></div>
+          <div class="pwd-strength"><div class="pwd-strength-bar" id="pwdBar"></div></div>
+          <div class="pwd-hint text-muted" id="pwdHint"></div>
+        </div>
+        <div class="fg" style="margin-bottom:0"><label>Confirm Password <span class="req">*</span></label>
+          <div class="pwd-wrap"><input class="fi" id="rPass2" type="password" placeholder="Re-enter password"/><button class="pwd-toggle" type="button" onclick="togglePwd('rPass2',this)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg></button></div>
+        </div>
+      </div>
+      <div class="terms"><input type="checkbox" id="rTerms"/><label for="rTerms">I agree to the <a href="#">Terms of Service</a> and <a href="#">Privacy Policy</a> of Shristi Enterprises.</label></div>
+      <button class="submit-btn" id="regBtn" onclick="doRegister()">Create My Account →</button>
+    </div>
+
+    <div class="auth-footer">
+      <p>© 2025 Shristi Enterprises · GSTIN: 27BLGPC8230C1ZJ · <a href="tel:8286361223">+91 82863 61223</a></p>
+    </div>
+  </div>
+</div>
+
+<script>
+let _selectedRole='customer';
+
+function switchTab(tab){
+  document.querySelectorAll('.auth-tab').forEach((t,i)=>t.classList.toggle('active',i===(tab==='login'?0:1)));
+  document.getElementById('loginForm').classList.toggle('active',tab==='login');
+  document.getElementById('registerForm').classList.toggle('active',tab==='register');
+  document.getElementById('panelTitle').textContent=tab==='login'?'Welcome Back':'Create Your Account';
+  hideErr(); hideSucc();
+}
+
+function selectRole(role, el, subtype){
+  document.querySelectorAll('.role-opt').forEach(r=>r.classList.remove('selected'));
+  el.classList.add('selected');
+  el.querySelector('input').checked=true;
+  _selectedRole = subtype==='corp'?'customer':role;
+  document.getElementById('corpFields').style.display=(role==='corporate'||subtype==='corp')?'block':'none';
+}
+
+function togglePwd(id, btn){
+  const inp=document.getElementById(id);
+  const isText=inp.type==='text';
+  inp.type=isText?'password':'text';
+  btn.querySelector('svg').innerHTML=isText?'<path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/>':'<path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"/><line x1="1" y1="1" x2="23" y2="23"/>';
+}
+
+function checkPwd(inp){
+  const v=inp.value;
+  const bar=document.getElementById('pwdBar');
+  const hint=document.getElementById('pwdHint');
+  let score=0;
+  if(v.length>=8)score++;if(v.length>=12)score++;
+  if(/[A-Z]/.test(v))score++;if(/[0-9]/.test(v))score++;if(/[^A-Za-z0-9]/.test(v))score++;
+  const pct=[0,25,45,65,85,100][score];
+  const colors=['','#DC2626','#D97706','#2563EB','#059669','#059669'];
+  const labels=['','Very Weak','Weak','Moderate','Strong','Very Strong'];
+  bar.style.width=pct+'%';bar.style.background=colors[score];
+  hint.textContent=score>0?labels[score]:'';
+  hint.style.color=colors[score];
+}
+
+function showErr(msg){const e=document.getElementById('authErr');e.classList.add('show');document.getElementById('authErrMsg').textContent=msg;}
+function hideErr(){document.getElementById('authErr').classList.remove('show');}
+function showSucc(msg){const e=document.getElementById('authSucc');e.classList.add('show');document.getElementById('authSuccMsg').textContent=msg;}
+function hideSucc(){document.getElementById('authSucc').classList.remove('show');}
+
+function fillLogin(email, pass, role){
+  document.getElementById('lEmail').value=email;
+  document.getElementById('lPass').value=pass;
+  switchTab('login');
+}
+
+function doLogin(){
+  hideErr();
+  const email=document.getElementById('lEmail').value.trim();
+  const pass=document.getElementById('lPass').value;
+  if(!email||!pass){showErr('Please enter your email and password.');return;}
+  const btn=document.getElementById('loginBtn');
+  btn.disabled=true;btn.innerHTML='<span class="spinner"></span> Logging in…';
+  setTimeout(()=>{
+    const user=Auth.login(email,pass);
+    if(!user){btn.disabled=false;btn.textContent='Login to Dashboard';showErr('Invalid email or password. Please try again.');return;}
+    showSucc('Login successful! Redirecting to your dashboard…');
+    setTimeout(()=>location.href=user.role==='admin'?'admin.html':'dashboard.html',900);
+  },600);
+}
+
+function doRegister(){
+  hideErr();
+  const name=document.getElementById('rName').value.trim();
+  const phone=document.getElementById('rPhone').value.trim();
+  const email=document.getElementById('rEmail').value.trim();
+  const pass=document.getElementById('rPass').value;
+  const pass2=document.getElementById('rPass2').value;
+  const terms=document.getElementById('rTerms').checked;
+  if(!name||!email||!phone||!pass){showErr('Please fill in all required fields.');return;}
+  if(pass.length<8){showErr('Password must be at least 8 characters.');return;}
+  if(pass!==pass2){showErr('Passwords do not match. Please re-enter.');return;}
+  if(!terms){showErr('Please accept the Terms of Service to continue.');return;}
+  const btn=document.getElementById('regBtn');
+  btn.disabled=true;btn.innerHTML='<span class="spinner"></span> Creating account…';
+  setTimeout(()=>{
+    const result=Auth.register({
+      name,email,phone,password:pass,
+      role:_selectedRole,
+      company:document.getElementById('rCompany')?.value.trim()||'',
+      gst:document.getElementById('rGst')?.value.trim()||'',
+      accountType:document.getElementById('rAccType')?.value||'prepaid'
+    });
+    if(result.error){btn.disabled=false;btn.textContent='Create My Account →';showErr(result.error);return;}
+    showSucc('Account created! Logging you in…');
+    setTimeout(()=>{Auth.login(email,pass);location.href='dashboard.html';},900);
+  },700);
+}
+
+document.addEventListener('keydown',e=>{if(e.key==='Enter'){const af=document.querySelector('.auth-form.active');if(af.id==='loginForm')doLogin();else doRegister();}});
+
+// Check if already logged in
+const me=Auth.me();
+if(me) location.href=me.role==='admin'?'admin.html':'dashboard.html';
+
+// Handle tab param
+const tab=new URLSearchParams(location.search).get('tab');
+if(tab==='register')switchTab('register');
+</script>
+</body>
+</html>
