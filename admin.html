@@ -108,7 +108,7 @@
       <div id="as_shipments" style="display:none">
         <div class="filter-bar">
           <div class="search-box"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg><input id="as_search" placeholder="AWB, name, phone, city…" oninput="filterAdminShips()"/></div>
-          <select class="filter-select" id="as_status" onchange="filterAdminShips()"><option value="">All Statuses</option>${Ship.STATUSES.map(s=>`<option value="${s}">${Ship.LABELS[s]}</option>`).join('')}</select>
+          <select class="filter-select" id="as_status" onchange="filterAdminShips()"></select>
           <select class="filter-select" id="as_carrier" onchange="filterAdminShips()"><option value="">All Carriers</option><option value="dtdc">DTDC</option><option value="maruti">Maruti</option><option value="bluedart">BlueDart</option><option value="delhivery">Delhivery</option></select>
           <input type="date" class="filter-select" id="as_date" onchange="filterAdminShips()" style="width:150px"/>
           <button class="btn btn-outline btn-sm" onclick="exportAllShipments()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/></svg>Export CSV</button>
@@ -133,9 +133,7 @@
                 <div id="su_found" style="display:none">
                   <div style="padding:12px;background:var(--bg);border-radius:8px;margin-bottom:14px;font-size:13.5px" id="su_info"></div>
                   <div class="fg"><label>New Status <span class="req">*</span></label>
-                    <select class="form-select" id="su_status">
-                      ${Ship.STATUSES.map(s=>`<option value="${s}">${Ship.LABELS[s]}</option>`).join('')}
-                    </select>
+                    <select class="form-select" id="su_status"></select>
                   </div>
                   <div class="fg"><label>Location</label><input class="form-input" id="su_loc" placeholder="e.g. Delhi Transit Hub"/></div>
                   <div class="fg"><label>Note / Remarks</label><input class="form-input" id="su_note" placeholder="e.g. Delivered to reception"/></div>
@@ -149,7 +147,7 @@
               <div class="sc-body">
                 <div class="fg"><label>AWB Numbers (one per line)</label><textarea class="form-input form-textarea" id="bu_awbs" placeholder="DT12345678901&#10;BD98765432100&#10;DL45678901234" style="min-height:100px"></textarea></div>
                 <div class="form-row">
-                  <div class="fg"><label>New Status</label><select class="form-select" id="bu_status">${Ship.STATUSES.map(s=>`<option value="${s}">${Ship.LABELS[s]}</option>`).join('')}</select></div>
+                  <div class="fg"><label>New Status</label><select class="form-select" id="bu_status"></select></div>
                   <div class="fg"><label>Location</label><input class="form-input" id="bu_loc" placeholder="Hub / City"/></div>
                 </div>
                 <div class="fg"><label>Note</label><input class="form-input" id="bu_note" placeholder="Batch update note"/></div>
@@ -223,7 +221,13 @@
             <div class="section-card">
               <div class="sc-header"><div class="sc-title">Other Charges</div></div>
               <div class="sc-body">
-                ${[['Fuel Surcharge','12% of freight'],['Insurance','1.2% of declared value (min ₹25)'],['COD Charge','1.8% of COD value (min ₹35)'],['Express Premium','20% of standard rate'],['GST Rate','18% on all charges']].map(([l,v])=>`<div style="display:flex;justify-content:space-between;padding:10px 0;border-bottom:1px solid var(--border);font-size:13.5px"><span class="text-muted">${l}</span><strong>${v}</strong></div>`).join('')}
+                
+<div style="display:flex;justify-content:space-between;padding:10px 0;border-bottom:1px solid var(--border);font-size:13.5px"><span class="text-muted">Fuel Surcharge</span><strong>12% of freight</strong></div>
+<div style="display:flex;justify-content:space-between;padding:10px 0;border-bottom:1px solid var(--border);font-size:13.5px"><span class="text-muted">Insurance</span><strong>1.2% of declared value (min ₹25)</strong></div>
+<div style="display:flex;justify-content:space-between;padding:10px 0;border-bottom:1px solid var(--border);font-size:13.5px"><span class="text-muted">COD Charge</span><strong>1.8% of COD value (min ₹35)</strong></div>
+<div style="display:flex;justify-content:space-between;padding:10px 0;border-bottom:1px solid var(--border);font-size:13.5px"><span class="text-muted">Express Premium</span><strong>20% of standard rate</strong></div>
+<div style="display:flex;justify-content:space-between;padding:10px 0;font-size:13.5px"><span class="text-muted">GST Rate</span><strong>18% on all charges</strong></div>
+
               </div>
             </div>
           </div>
@@ -248,7 +252,13 @@
             <div class="section-card" style="margin-bottom:16px">
               <div class="sc-header"><div class="sc-title">Notification Settings</div></div>
               <div class="sc-body">
-                ${[['Email on new booking','Enabled'],['SMS on delivery','Enabled'],['WhatsApp updates','Enabled'],['Weekly MIS email','Every Monday'],['Monthly invoice auto-send','1st of month']].map(([l,v])=>`<div style="display:flex;justify-content:space-between;align-items:center;padding:10px 0;border-bottom:1px solid var(--border)"><span style="font-size:13.5px">${l}</span><span class="badge badge-green" style="font-size:11px">${v}</span></div>`).join('')}
+                
+<div style="display:flex;justify-content:space-between;align-items:center;padding:10px 0;border-bottom:1px solid var(--border)"><span style="font-size:13.5px">Email on new booking</span><span class="badge badge-green" style="font-size:11px">Enabled</span></div>
+<div style="display:flex;justify-content:space-between;align-items:center;padding:10px 0;border-bottom:1px solid var(--border)"><span style="font-size:13.5px">SMS on delivery</span><span class="badge badge-green" style="font-size:11px">Enabled</span></div>
+<div style="display:flex;justify-content:space-between;align-items:center;padding:10px 0;border-bottom:1px solid var(--border)"><span style="font-size:13.5px">WhatsApp updates</span><span class="badge badge-green" style="font-size:11px">Enabled</span></div>
+<div style="display:flex;justify-content:space-between;align-items:center;padding:10px 0;border-bottom:1px solid var(--border)"><span style="font-size:13.5px">Weekly MIS email</span><span class="badge badge-green" style="font-size:11px">Every Monday</span></div>
+<div style="display:flex;justify-content:space-between;align-items:center;padding:10px 0"><span style="font-size:13.5px">Monthly invoice auto-send</span><span class="badge badge-green" style="font-size:11px">1st of month</span></div>
+
               </div>
             </div>
             <div class="section-card">
@@ -489,7 +499,7 @@ function lookupSU() {
   const s=Ship.byAWB(awb);
   const found=document.getElementById('su_found');
   if(!s){found.style.display='none';U.toast('AWB not found in system','error');return;}
-  document.getElementById('su_info').innerHTML=`<strong>${s.awb}</strong> · ${U.carrierName(s.carrier)} · ${s.rName} → ${s.rCity} · Current: <strong style="color:${U.statusColor(s.status)}">${Ship.LABELS[s.status]}</strong>`;
+  document.getElementById('su_info').innerHTML='<strong>'+s.awb+'</strong> · '+U.carrierName(s.carrier)+' · '+(s.rName||'?')+' → '+(s.rCity||'?')+' · Current: <strong style="color:'+U.statusColor(s.status)+'">'+(Ship.LABELS[s.status]||s.status)+'</strong>';
   document.getElementById('su_status').value=s.status;
   found.style.display='block';
   found.setAttribute('data-id',s.id);
@@ -722,7 +732,16 @@ function openModal(id){document.getElementById(id).classList.add('open');}
 function closeModal(id){document.getElementById(id).classList.remove('open');}
 document.querySelectorAll('.modal-overlay').forEach(m=>m.addEventListener('click',e=>{if(e.target===m)m.classList.remove('open');}));
 
-// Init
+// Init — Populate status selects
+function populateStatusSelects() {
+  const statusOptions = Object.entries(Ship.LABELS)
+    .map(([val, label]) => `<option value="${val}">${label}</option>`).join('');
+  ['su_status','bu_status'].forEach(id => {
+    const el = document.getElementById(id);
+    if (el) el.innerHTML = statusOptions;
+  });
+}
+populateStatusSelects();
 loadAdminDashboard();
 </script>
 </body>
