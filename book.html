@@ -68,9 +68,14 @@
                   </div>
                   <div class="fg"><label>Pickup Address <span class="req">*</span></label><input class="form-input" id="sAddr" placeholder="Gala No.06, Rainbow Industrial Estate, MIDC"/></div>
                   <div class="form-row-3">
-                    <div class="fg"><label>City <span class="req">*</span></label><input class="form-input" id="sCity" value="Mumbai"/></div>
+                    <div class="fg"><label>City <span class="req">*</span></label>
+                      <div style="position:relative">
+                        <input class="form-input" id="sCity" value="Mumbai" autocomplete="off" oninput="cityAutocomplete(this,'scity-list')"/>
+                        <div id="scity-list" class="city-dropdown" style="display:none"></div>
+                      </div>
+                    </div>
                     <div class="fg"><label>PIN Code <span class="req">*</span></label><input class="form-input" id="sPin" value="400093" maxlength="6"/></div>
-                    <div class="fg"><label>State</label><input class="form-input" id="sState" value="Maharashtra"/></div>
+                    <div class="fg"><label>State</label><select class="form-select" id="sState"><option value="">Select State…</option></select></div>
                   </div>
                   <div class="fg"><label>Pickup Date</label><input class="form-input" id="sPickup" type="date" min=""/></div>
                   <div style="display:flex;justify-content:flex-end;margin-top:4px">
@@ -92,13 +97,13 @@
                   <div class="fg"><label>Delivery Address <span class="req">*</span></label><textarea class="form-input form-textarea" id="rAddr" placeholder="123 Main Street, Block B" style="min-height:70px"></textarea></div>
                   <div class="form-row-3">
                     <div class="fg"><label>City <span class="req">*</span></label>
-                      <select class="form-select" id="rCity" onchange="updateRates()">
-                        <option value="">Select city…</option>
-                        ${Object.keys(Rates.ZONES).map(c=>`<option value="${c}">${c}</option>`).join('')}
-                      </select>
+                      <div style="position:relative">
+                        <input class="form-input" id="rCity" placeholder="Type city name…" autocomplete="off" oninput="cityAutocomplete(this,'rcity-list')" onchange="updateRates()"/>
+                        <div id="rcity-list" class="city-dropdown" style="display:none"></div>
+                      </div>
                     </div>
-                    <div class="fg"><label>PIN Code <span class="req">*</span></label><input class="form-input" id="rPin" placeholder="110001" maxlength="6"/></div>
-                    <div class="fg"><label>State</label><input class="form-input" id="rState" placeholder="Delhi"/></div>
+                    <div class="fg"><label>PIN Code <span class="req">*</span></label><input class="form-input" id="rPin" placeholder="110001" maxlength="6" oninput="autoFillState()"/></div>
+                    <div class="fg"><label>State <span class="req">*</span></label><select class="form-select" id="rState"><option value="">Select State…</option></select></div>
                   </div>
                   <div style="display:flex;justify-content:space-between;margin-top:4px">
                     <button class="btn btn-ghost" onclick="goStep(1)">← Back</button>
@@ -560,5 +565,21 @@ function downloadAWBSheet(){
   U.toast('AWB sheet downloaded');
 }
 </script>
+
+<style>
+.city-dropdown{position:absolute;top:100%;left:0;right:0;background:#fff;border:1px solid #ddd;max-height:220px;overflow:auto;z-index:999}
+.city-opt{padding:8px;cursor:pointer}.city-opt:hover{background:#eef5ff}
+</style>
+<script>
+const INDIA_CITIES=[{n:'Mumbai',st:'Maharashtra'},{n:'Delhi',st:'Delhi'},{n:'Bengaluru',st:'Karnataka'},{n:'Chennai',st:'Tamil Nadu'},{n:'Kolkata',st:'West Bengal'},{n:'Hyderabad',st:'Telangana'},{n:'Pune',st:'Maharashtra'},{n:'Ahmedabad',st:'Gujarat'}];
+const INDIA_STATES=['Andhra Pradesh','Assam','Bihar','Delhi','Goa','Gujarat','Haryana','Karnataka','Kerala','Madhya Pradesh','Maharashtra','Odisha','Punjab','Rajasthan','Tamil Nadu','Telangana','Uttar Pradesh','West Bengal'];
+window.addEventListener('load',()=>{
+['sState','rState'].forEach(id=>{let e=document.getElementById(id);if(e)e.innerHTML='<option value="">Select State…</option>'+INDIA_STATES.map(s=>`<option>${s}</option>`).join('');});
+});
+function cityAutocomplete(inp,listId){let l=document.getElementById(listId),q=inp.value.toLowerCase();let m=INDIA_CITIES.filter(c=>c.n.toLowerCase().startsWith(q));if(!q){l.style.display='none';return;}l.innerHTML=m.map(c=>`<div class='city-opt' onclick="selectCity('${c.n}','${c.st}','${inp.id}','${listId}')">${c.n} (${c.st})</div>`).join('');l.style.display='block';}
+function selectCity(c,s,input,list){document.getElementById(input).value=c;document.getElementById(list).style.display='none';document.getElementById(input==='rCity'?'rState':'sState').value=s;if(input==='rCity'&&window.updateRates)updateRates();}
+function autoFillState(){}
+</script>
+
 </body>
 </html>
